@@ -21,14 +21,13 @@ const AppRoutes = () => {
         />
 
         <Route
-            path="/auth/login"
+            path="/auth/:id"
             element={
             <PublicRoute>
                 <AuthPage />
             </PublicRoute>
             }
         />
-
 
         <Route
             path="/home"

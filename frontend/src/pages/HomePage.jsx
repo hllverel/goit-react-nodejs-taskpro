@@ -5,9 +5,10 @@ import ScreensPage from "../components/ScreensPage/ScreensPage.jsx";
 function HamePage() {
     return (
       <>
+        <h2>HomePage</h2>
         <Header />
         <Sidebar />
-        <ScreensPage/>
+        <ScreensPage />
       </>
   );
 }

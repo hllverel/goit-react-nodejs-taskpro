@@ -2,7 +2,9 @@ import './RegisterForm.css';
 
 function RegisterForm() {
     return (
-      <></>
+      <>
+        <h2>RegisterForm</h2>
+      </>
   );
 }
 
