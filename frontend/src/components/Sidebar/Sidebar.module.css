@@ -1,49 +1,37 @@
 .mobileToggle {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  z-index: 1001;
-
   display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 40px;
-  height: 40px;
-
-  background: transparent;
+  position: fixed;
+  top: 14px;
+  left: 14px;
+  z-index: 100;
+  background: none;
   border: none;
   color: var(--color-text);
   cursor: pointer;
+  padding: 4px;
 }
 
 .overlay {
   position: fixed;
   inset: 0;
   background: rgba(0, 0, 0, 0.45);
-  z-index: 999;
+  z-index: 90;
 }
 
 .sidebar {
   position: fixed;
-  top: 0;
-  left: 0;
-
+  inset: 0 auto 0 0;
   width: 260px;
-  height: 100vh;
-
   background: var(--color-sidebar);
   border-right: 1px solid var(--color-border);
-
   display: flex;
   flex-direction: column;
-
-  transform: translateX(-100%);
-  transition: transform .3s ease;
-
+  padding: 24px 0;
   overflow-y: auto;
-
-  z-index: 1000;
+  overflow-x: hidden;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 99;
 }
 
 .sidebar.open {
@@ -52,131 +40,126 @@
 
 .closeBtn {
   position: absolute;
-  top: 16px;
-  right: 16px;
-
+  top: 14px;
+  right: 14px;
   background: none;
   border: none;
-
-  color: var(--color-text);
-
+  color: var(--color-text-muted);
   cursor: pointer;
 }
 
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
-
-  padding: 24px;
-
-  font-size: 20px;
-  font-weight: 700;
-}
-
-.logoIcon {
-  font-size: 26px;
+  gap: 8px;
+  padding: 0 24px;
+  margin-bottom: 8px;
 }
 
 .logoText {
+  font-size: 16px;
+  font-weight: 600;
   color: var(--color-text);
 }
 
 .divider {
-  width: 100%;
   height: 1px;
+  margin-bottom: 14px;
   background: var(--color-border);
 }
 
 .label {
-  margin: 24px 24px 10px;
+  padding: 0 24px;
+  margin-bottom: 8px;
   font-size: 12px;
   color: var(--color-text-muted);
 }
 
 .createBtn {
-  margin: 0 24px 24px;
-
   display: flex;
-  justify-content: space-between;
   align-items: center;
-
+  justify-content: space-between;
+  width: calc(100% - 48px);
+  margin: 0 24px 20px;
   background: none;
   border: none;
-
   cursor: pointer;
 }
 
 .createLabel {
-  color: var(--color-text);
   font-size: 14px;
+  font-weight: 500;
+  color: var(--color-text);
 }
 
 .createIcon {
   width: 40px;
   height: 36px;
-
   display: flex;
   align-items: center;
   justify-content: center;
-
+  border-radius: 8px;
   background: var(--color-accent);
   color: var(--color-btn-text);
+  transition: 0.2s;
+}
 
-  border-radius: 8px;
+.createBtn:hover .createLabel {
+  color: var(--color-accent);
+}
+
+.createBtn:hover .createIcon {
+  opacity: 0.85;
 }
 
 .nav {
   flex: 1;
+  overflow-y: auto;
 }
 
 .boardItem {
   display: flex;
   align-items: center;
-
-  gap: 10px;
-
+  gap: 8px;
   padding: 14px 24px;
-
   cursor: pointer;
-
   border-left: 4px solid transparent;
-
-  transition: .2s;
+  transition: 0.2s;
 }
 
-.boardItem:hover {
+.boardItem:hover,
+.boardItem.active {
   background: var(--color-hover);
 }
 
 .boardItem.active {
-  background: var(--color-hover);
   border-left-color: var(--color-accent);
 }
 
 .boardIcon {
-  width: 20px;
   display: flex;
-  justify-content: center;
-
+  font-size: 18px;
   color: var(--color-text-muted);
 }
 
 .boardTitle {
   flex: 1;
-
-  overflow: hidden;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-
-  color: var(--color-text);
   font-size: 14px;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.boardItem:hover .boardTitle,
+.boardItem.active .boardTitle,
+.boardItem.active .boardIcon {
+  color: var(--color-text);
 }
 
 .boardActions {
   display: none;
-  align-items: center;
-  gap: 6px;
+  gap: 4px;
 }
 
 .boardItem:hover .boardActions,
@@ -186,15 +169,12 @@
 
 .actionBtn {
   display: flex;
-  align-items: center;
-  justify-content: center;
-
+  padding: 4px;
   background: none;
   border: none;
-
   color: var(--color-text-muted);
-
   cursor: pointer;
+  transition: 0.2s;
 }
 
 .actionBtn:hover {
@@ -203,24 +183,23 @@
 
 .bottom {
   padding: 24px;
+  margin-top: auto;
 }
 
 .helpCard {
+  width: 100%;
+  padding: 20px;
+  margin-bottom: 24px;
+  background: var(--color-card);
+  border-radius: 8px;
   display: flex;
   flex-direction: column;
   gap: 14px;
-
-  padding: 18px;
-
-  border-radius: 12px;
-
-  background: var(--color-card);
-
-  margin-bottom: 24px;
 }
 
-.helpIcon {
-  color: var(--color-accent);
+.helpPlant {
+  width: 54px;
+  height: auto;
 }
 
 .helpText {
@@ -232,20 +211,14 @@
 .helpBtn {
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-
-  width: fit-content;
-
+  gap: 8px;
   padding: 8px 14px;
-
+  background: none;
   border: 1px solid var(--color-border);
   border-radius: 8px;
-
-  text-decoration: none;
-
   color: var(--color-text);
-
-  transition: .2s;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .helpBtn:hover {
@@ -254,43 +227,78 @@
 }
 
 .logoutBtn {
+  width: 100%;
   display: flex;
   align-items: center;
   gap: 10px;
-
-  width: 100%;
-
   background: none;
   border: none;
-
-  cursor: pointer;
-
   color: var(--color-text);
-
-  font-size: 15px;
-}
-
-.logoutIcon {
-  width: 34px;
-  height: 34px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 8px;
-
-  background: var(--color-hover);
-
-  color: var(--color-accent);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.2s;
 }
 
 .logoutBtn:hover {
   color: var(--color-accent);
 }
 
-@media (min-width:768px) {
+.logoutIcon {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-hover);
+  color: var(--color-accent);
+  border-radius: 8px;
+}
 
+.confirmText {
+  margin: 0 0 20px;
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text);
+}
+
+.confirmActions {
+  display: flex;
+  gap: 12px;
+}
+
+.confirmCancel,
+.confirmDelete {
+  flex: 1;
+  padding: 12px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.confirmCancel {
+  background: none;
+  border: 1px solid var(--color-border);
+  color: var(--color-text);
+}
+
+.confirmCancel:hover {
+  border-color: var(--color-accent);
+}
+
+.confirmDelete {
+  background: #e74c3c;
+  border: none;
+  color: #fff;
+}
+
+.confirmDelete:hover {
+  opacity: 0.85;
+}
+
+@media (min-width: 768px) {
   .mobileToggle,
   .overlay,
   .closeBtn {
@@ -299,12 +307,14 @@
 
   .sidebar {
     position: fixed;
-    transform: translateX(0);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    transform: none;
   }
 }
 
-@media (min-width:1440px) {
-
+@media (min-width: 1440px) {
   .sidebar {
     width: 260px;
   }
