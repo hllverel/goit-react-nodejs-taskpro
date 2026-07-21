@@ -30,3 +30,17 @@ export const ENV_VARS = {
   GOOGLE_AUTH_CLIENT_ID: 'GOOGLE_AUTH_CLIENT_ID',
   GOOGLE_AUTH_CLIENT_SECRET: 'GOOGLE_AUTH_CLIENT_SECRET',
 };
+
+export const JWT = {
+  JWT_SECRET: 'JWT_SECRET',
+};
+
+export const ACCESS_TOKEN_LIFETIME = '24h';
+
+// Task spec: email = single "@", at least one "." in the host part.
+// password = 8-64 chars, no spaces. name = 2-32 chars, spaces allowed.
+export const REGEXP = {
+  EMAIL: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/,
+  PASSWORD: /^[!-~]{8,64}$/,
+  NAME: /^[ -~]{2,32}$/,
+};

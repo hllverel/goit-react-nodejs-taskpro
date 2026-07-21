@@ -1,4 +1,5 @@
 import { Router } from "express";
+import authRouter from './authRouter.js';
 
 const router = Router();
 
@@ -8,6 +9,6 @@ router.get('/', (req, res) => {
   });
 });
 
-// TODO: mount feature routers here, e.g. router.use("/auth", authRouter);
+router.use('/auth', authRouter);
 
 export default router;
