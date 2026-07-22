@@ -1,5 +1,7 @@
+// place this in the sidebar later
 import { useState, useEffect } from 'react';
-import './NeedHelp.css';
+import styles from './NeedHelp.module.css';
+import plantImg from '../../assets/needhelpplant.png';
 
 export default function NeedHelp() {
     const [isOpen, setIsOpen] = useState(false);
@@ -63,16 +65,24 @@ export default function NeedHelp() {
 
     return (
         <>
-            {/* place this in the sidebar later */}
-        <button className="need-help-trigger" onClick={() => setIsOpen(true)}>
-            Need help?
-        </button>
+            <div className={styles.needhelpsidebar}>
+                <img className={styles.plant} src={plantImg} alt="plant image" />
+                <p>If you need help with <span className={styles.taskpro}>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
+                <div className={styles.needhelptrigger} onClick={() => setIsOpen(true)}>
+                    <svg className={styles.helpcircle}>
+                        <use href="/symbol-defs.svg#icon-help-circle"></use>
+                    </svg>
+                    <p>Need help?</p>
+                </div>
+            </div>
 
         {isOpen && (
-            <div className="modal-overlay" onClick={closeModal}>
-            <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                <button className="modal-close" onClick={closeModal}>
-                &times;
+            <div className={styles.modal} onClick={closeModal}>
+            <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
+                <button className={styles.closepopup} onClick={closeModal}>
+                    <svg className={styles.closeicon}>
+                        <use href="/symbol-defs.svg#icon-close"></use>
+                    </svg>
                 </button>
 
                 {status === 'success' ? (
@@ -82,42 +92,34 @@ export default function NeedHelp() {
                     <button onClick={closeModal}>Close</button>
                 </div>
                 ) : (
-                <form onSubmit={handleSubmit}>
+                <form className={styles.form} onSubmit={handleSubmit}>
                     <h2>Need help?</h2>
 
-                    <label>
-                    Your name (optional)
-                    <input
-                        type="text"
-                        value={fromName}
-                        onChange={(e) => setFromName(e.target.value)}
-                    />
-                    </label>
-
-                    <label>
-                    Your email
+                    <label for="email">
                     <input
                         type="email"
-                        required
+                        name="email"
                         value={fromEmail}
+                        placeholder="Email address"
+                        required
                         onChange={(e) => setFromEmail(e.target.value)}
                     />
                     </label>
 
                     <label>
-                    Message
                     <textarea
                         required
-                        rows={5}
+                        // rows={5}
                         value={message}
+                        placeholder="Comment"
                         onChange={(e) => setMessage(e.target.value)}
                     />
                     </label>
 
                     {status === 'error' && <p className="error-text">{errorMsg}</p>}
 
-                    <button type="submit" disabled={status === 'sending'}>
-                    {status === 'sending' ? 'Sending...' : 'Send message'}
+                    <button className={styles.sendbutton} type="submit">Send
+                    {/* {status === 'sending' ? 'Sending...' : 'Send message'} */}
                     </button>
                 </form>
                 )}

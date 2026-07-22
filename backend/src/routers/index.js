@@ -10,7 +10,7 @@ router.get('/', (req, res) => {
   });
 });
 
-router.use('/auth', authRouter);
+router.use('/api/auth', authRouter);
 router.use('/help', helpRouter);
 
 export default router;
