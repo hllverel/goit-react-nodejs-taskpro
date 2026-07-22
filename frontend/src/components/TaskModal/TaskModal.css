@@ -195,7 +195,7 @@
   font-size: 16px;
 }
 /* ==========================================================================
-   📱 SADECE MOBİL RESPONSIVE AYARLARI (Maksimum 480px genişlik için)
+   SADECE MOBİL RESPONSIVE AYARLARI (Maksimum 480px genişlik için)
    ========================================================================== */
 @media screen and (max-width: 480px) {
   /* Ana dış kutuyu mobil ekranlara sığacak şekilde daraltıyoruz */
