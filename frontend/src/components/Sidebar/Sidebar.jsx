@@ -1,9 +1,10 @@
 import { useState } from "react";
 import "./Sidebar.css";
 
-import LogoComponent from "../LogoComponent/LogoComponent";
-import Navigation from "../Navigation/Navigation";
-import BoardModal from "../BoardModal/BoardModal";
+import LogoComponent from "../LogoComponent/LogoComponent.jsx";
+import Navigation from "../Navigation/Navigation.jsx";
+import BoardModal from "../BoardModal/BoardModal.jsx";
+import NeedHelp from "../NeedHelp/NeedHelp.jsx"
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -34,15 +35,17 @@ export default function Sidebar() {
         <Navigation />
       </div>
 
-      <div className="sidebar-bottom">
-        <div className="help-card">
-          <p className="help-title">Need help?</p>
+      <NeedHelp />
 
-          <button className="help-btn">
-            Open Help
-          </button>
-        </div>
+        <div className="sidebar-bottom">
+          {/* <div className="help-card">
+            <p className="help-title">Need help?</p>
 
+            <button className="help-btn">
+              Open Help
+            </button>
+          </div> */}
+        
         <button
           className="logout-btn"
           onClick={handleLogout}

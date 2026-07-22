@@ -95,28 +95,29 @@ export default function NeedHelp() {
                 <form className={styles.form} onSubmit={handleSubmit}>
                     <h2>Need help?</h2>
 
-                    <label for="email">
-                    <input
+                    <label htmlFor="email">
+                        <input
                         type="email"
                         name="email"
+                        id="email"
                         value={fromEmail}
                         placeholder="Email address"
                         required
                         onChange={(e) => setFromEmail(e.target.value)}
-                    />
+                        />
                     </label>
 
-                    <label>
-                    <textarea
+                    <label htmlFor="message">
+                        <textarea
                         required
-                        // rows={5}
+                        id="message"
                         value={message}
                         placeholder="Comment"
                         onChange={(e) => setMessage(e.target.value)}
-                    />
+                        />
                     </label>
 
-                    {status === 'error' && <p className="error-text">{errorMsg}</p>}
+                    {status === 'error' && <p className={styles.errortext}>{errorMsg}</p>}
 
                     <button className={styles.sendbutton} type="submit">Send
                     {/* {status === 'sending' ? 'Sending...' : 'Send message'} */}
