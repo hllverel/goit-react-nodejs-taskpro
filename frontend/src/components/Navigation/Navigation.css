@@ -1,0 +1,51 @@
+.navigation {
+  margin-top: 30px;
+  display: flex;
+  flex-direction: column;
+}
+
+.board {
+  height: 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  text-decoration: none;
+  color: #ffffff;
+  padding: 0 24px;
+  transition: .3s;
+}
+
+.board:hover {
+  background: rgba(255,255,255,.06);
+}
+
+.board.active {
+  background: rgba(190,219,176,.15);
+  border-right: 4px solid #BEDBB0;
+}
+
+.board-left {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.board-icon {
+  font-size: 18px;
+}
+
+.board-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.board-actions button {
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  font-size: 16px;
+}
+
+.board-actions button:hover {
+  transform: scale(1.1);
+}
