@@ -187,7 +187,7 @@
 }
 
 /* ==========================================================================
-   📱 MOBİL RESPONSIVE AYARLARI (Maksimum 480px ekranlar için: 335x154)
+   MOBİL RESPONSIVE AYARLARI (Maksimum 480px ekranlar için: 335x154)
    ========================================================================== */
 @media screen and (max-width: 480px) {
   .task-card {
