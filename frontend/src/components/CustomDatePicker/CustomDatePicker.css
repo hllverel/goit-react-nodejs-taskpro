@@ -19,7 +19,6 @@
   border-color: #bedbb0;
 }
 
-/* 🌙 TAKVİM POP-UP KUTUSUNU TAMAMEN KARARTIYORUZ */
 .react-datepicker {
   background-color: #151515 !important;
   border: 1px solid rgba(255, 255, 255, 0.1) !important;
@@ -66,7 +65,7 @@
   color: rgba(255, 255, 255, 0.15) !important;
 }
 /* ==========================================================================
-   🎯 TAKVİM BAŞLIK (AY/YIL) VE OK HİZALAMA AYARLARI
+   TAKVİM BAŞLIK (AY/YIL) VE OK HİZALAMA AYARLARI
    ========================================================================== */
 
 /* Başlık alanının (Header) kendi iç yapısını esnek (flex) yapıp elemanları dağıtıyoruz */
