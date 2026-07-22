@@ -31,6 +31,8 @@ export const ENV_VARS = {
   GOOGLE_AUTH_CLIENT_SECRET: 'GOOGLE_AUTH_CLIENT_SECRET',
 };
 
+export const SUPPORT_EMAIL = 'taskprotemp@yopmail.com';
+
 export const JWT = {
   JWT_SECRET: 'JWT_SECRET',
 };
