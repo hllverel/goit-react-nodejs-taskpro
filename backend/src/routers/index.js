@@ -9,7 +9,7 @@ router.get('/', (req, res) => {
   });
 });
 
-// TODO: mount feature routers here, e.g. router.use("/auth", authRouter);
+router.use('/auth', authRouter);
 
 router.use('/tasks', taskRouter);
 
