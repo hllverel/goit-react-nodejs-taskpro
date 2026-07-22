@@ -1,5 +1,6 @@
 import { Router } from "express";
 import helpRouter from "./needHelp.js";
+import authRouter from './authRouter.js';
 
 const router = Router();
 
@@ -9,7 +10,7 @@ router.get('/', (req, res) => {
   });
 });
 
-// TODO: mount feature routers here, e.g. router.use("/auth", authRouter);
+router.use('/auth', authRouter);
 router.use('/help', helpRouter);
 
 export default router;

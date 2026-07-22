@@ -1,0 +1,30 @@
+.welcomePage {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  min-height: 100vh;
+  text-align: center;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+}
+
+.button {
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+}
+
+.buttonPrimary {
+  background: #4b5563;
+  color: #fff;
+}
+
+.buttonSecondary {
+  border: 1px solid #4b5563;
+  color: #4b5563;
+}

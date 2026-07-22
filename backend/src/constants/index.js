@@ -32,3 +32,17 @@ export const ENV_VARS = {
 };
 
 export const SUPPORT_EMAIL = 'taskprotemp@yopmail.com';
+
+export const JWT = {
+  JWT_SECRET: 'JWT_SECRET',
+};
+
+export const ACCESS_TOKEN_LIFETIME = '24h';
+
+// Task spec: email = single "@", at least one "." in the host part.
+// password = 8-64 chars, no spaces. name = 2-32 chars, spaces allowed.
+export const REGEXP = {
+  EMAIL: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/,
+  PASSWORD: /^[!-~]{8,64}$/,
+  NAME: /^[ -~]{2,32}$/,
+};
