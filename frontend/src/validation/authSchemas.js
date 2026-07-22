@@ -19,3 +19,39 @@ const name = yup
 export const loginSchema = yup.object({ email, password });
 
 export const registerSchema = yup.object({ name, email, password });
+
+const optionalName = yup
+  .string()
+  .transform((value) => (value === '' ? undefined : value))
+  .optional()
+  .matches(NAME_REGEXP, { message: 'Name must be 2-32 characters long', excludeEmptyString: true });
+
+const optionalEmail = yup
+  .string()
+  .transform((value) => (value === '' ? undefined : value))
+  .optional()
+  .matches(EMAIL_REGEXP, { message: 'Enter a valid email address', excludeEmptyString: true });
+
+const optionalPassword = yup
+  .string()
+  .transform((value) => (value === '' ? undefined : value))
+  .optional()
+  .matches(PASSWORD_REGEXP, {
+    message: 'Password must be 8-64 characters long, with no spaces',
+    excludeEmptyString: true,
+  });
+
+const confirmPassword = yup
+  .string()
+  .transform((value) => (value === '' ? undefined : value))
+  .test('passwords-match', 'Passwords must match', function (value) {
+    const { password } = this.parent;
+    return (password || '') === (value || '');
+  });
+
+export const updateProfileSchema = yup.object({
+  name: optionalName,
+  email: optionalEmail,
+  password: optionalPassword,
+  confirmPassword,
+});

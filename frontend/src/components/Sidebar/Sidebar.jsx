@@ -1,17 +1,26 @@
 import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 import LogoComponent from "../LogoComponent/LogoComponent.jsx";
 import Navigation from "../Navigation/Navigation.jsx";
 import BoardModal from "../BoardModal/BoardModal.jsx";
-import NeedHelp from "../NeedHelp/NeedHelp.jsx"
+import NeedHelp from "../NeedHelp/NeedHelp.jsx";
+import { logoutThunk } from "../../store/auth/authSlice.js";
 
 export default function Sidebar() {
   const [isOpen, setIsOpen] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
-  const handleLogout = () => {
-    // Daha sonra API logout işlemi eklenecek
-    console.log("Logout");
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutThunk()).unwrap();
+      navigate("/welcome", { replace: true });
+    } catch (error) {
+      console.error("Logout failed", error);
+    }
   };
 
   return (

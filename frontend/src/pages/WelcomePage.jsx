@@ -1,20 +1,35 @@
 import { Link } from 'react-router-dom';
+import LogoComponent from '../components/LogoComponent/LogoComponent.jsx';
+import heroIllustration from '../assets/hero-illustration.webp';
 import styles from './WelcomePage.module.css';
 
 function WelcomePage() {
   return (
-    <div className={styles.welcomePage}>
-      <h1>Task Pro</h1>
-      <p>Organize your work and life, finally.</p>
+    <main className={styles.welcomePage}>
+      <img
+        className={styles.hero}
+        src={heroIllustration}
+        width={162}
+        height={162}
+        alt="Person working on a laptop"
+      />
+
+      <LogoComponent />
+
+      <p className={styles.description}>
+        Supercharge your productivity and take control of your tasks with Task
+        Pro - Don't wait, start achieving your goals now!
+      </p>
+
       <div className={styles.actions}>
-        <Link to="/auth/register" className={`${styles.button} ${styles.buttonPrimary}`}>
+        <Link to="/auth/register" className={styles.buttonPrimary}>
           Registration
         </Link>
-        <Link to="/auth/login" className={`${styles.button} ${styles.buttonSecondary}`}>
+        <Link to="/auth/login" className={styles.buttonLink}>
           Log In
         </Link>
       </div>
-    </div>
+    </main>
   );
 }
 

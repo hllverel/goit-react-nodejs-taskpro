@@ -64,6 +64,23 @@ export const refreshUserThunk = createAsyncThunk(
   }
 );
 
+export const updateUserThunk = createAsyncThunk(
+  "auth/updateUser",
+  async (formData, thunkAPI) => {
+    try {
+      const { token } = thunkAPI.getState().auth;
+      const { data } = await api.patch("/auth/current", formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+      return data;
+    } catch (error) {
+      const message =
+        error.response?.data?.data?.message || error.response?.data?.message;
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
 const initialState = {
   user: null,
   token: null,
@@ -106,6 +123,9 @@ const authSlice = createSlice({
       })
       .addCase(refreshUserThunk.rejected, (state) => {
         state.isRefreshing = false;
+      })
+      .addCase(updateUserThunk.fulfilled, (state, action) => {
+        state.user = { ...state.user, ...action.payload };
       });
   },
 });

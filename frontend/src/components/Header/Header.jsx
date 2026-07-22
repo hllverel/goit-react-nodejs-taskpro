@@ -1,6 +1,9 @@
 import { useState } from "react";
 import "./Header.css";
 import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
+import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
+import { useAuth } from "../../hooks/useAuth.js";
+import { getAvatarUrl } from "../../utils/avatar.js";
 
 const themes = [
   { id: "light", label: "Light" },
@@ -11,11 +14,15 @@ const themes = [
 export default function Header() {
   const [theme, setTheme] = useState("dark");
   const [showProfile, setShowProfile] = useState(false);
+  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
+  const { user } = useAuth();
 
-  const user = {
-    name: "User",
-    avatar:
-      "https://ui-avatars.com/api/?name=User&background=bedbb0&color=000",
+  const displayName = user?.name || "User";
+  const avatarUrl = getAvatarUrl(user);
+
+  const handleOpenEditProfile = () => {
+    setIsEditProfileOpen(true);
+    setShowProfile(false);
   };
 
   const handleThemeChange = (e) => {
@@ -45,17 +52,27 @@ export default function Header() {
           className="user-info"
           onClick={() => setShowProfile(!showProfile)}
         >
-          <span>{user.name}</span>
+          <span>{displayName}</span>
 
-          <img src={user.avatar} alt={user.name} />
+          <img src={avatarUrl} alt={displayName} />
         </button>
 
         {showProfile && (
           <div className="profile-dropdown">
-            <p>Edit Profile</p>
+            <button
+              type="button"
+              className="profile-dropdown-item"
+              onClick={handleOpenEditProfile}
+            >
+              Edit Profile
+            </button>
           </div>
         )}
       </div>
+
+      {isEditProfileOpen && (
+        <EditProfileModal onClose={() => setIsEditProfileOpen(false)} />
+      )}
     </header>
   );
 }

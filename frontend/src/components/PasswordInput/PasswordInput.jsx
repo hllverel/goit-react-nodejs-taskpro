@@ -1,12 +1,13 @@
 import { useState } from 'react';
 import styles from './PasswordInput.module.css';
 
-function PasswordInput({ registration, placeholder = 'Password', error, autoComplete }) {
+function PasswordInput({ registration, placeholder = 'Password', error, autoComplete, className = '' }) {
   const [visible, setVisible] = useState(false);
 
   return (
     <div className={styles.passwordInput}>
       <input
+        className={className}
         type={visible ? 'text' : 'password'}
         placeholder={placeholder}
         autoComplete={autoComplete}
