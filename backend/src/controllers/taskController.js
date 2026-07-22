@@ -1,5 +1,5 @@
 import { Task } from '../db/models/Tasks.js';
-// ➕ 1. YENİ KART EKLEME (Create)
+// kart ekleme
 export const createTaskController = async (req, res, next) => {
   try {
     const { title, description, labelColor, deadline, columnId } = req.body;
@@ -9,7 +9,7 @@ export const createTaskController = async (req, res, next) => {
       description,
       labelColor,
       deadline,
-      columnId: columnId || 'todo', // Eğer sütun gönderilmediyse varsayılan 'todo' olsun reis
+      columnId: columnId || 'todo',
     });
 
     res.status(201).json({
@@ -22,7 +22,7 @@ export const createTaskController = async (req, res, next) => {
   }
 };
 
-// ✏️ 2. KART GÜNCELLEME (Update)
+// kart güncelleme
 export const updateTaskController = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -51,7 +51,7 @@ export const updateTaskController = async (req, res, next) => {
   }
 };
 
-// 🗑️ 3. KART SİLME (Delete)
+// kart silme
 export const deleteTaskController = async (req, res, next) => {
   try {
     const { id } = req.params;
@@ -75,7 +75,7 @@ export const deleteTaskController = async (req, res, next) => {
 };
 export const getTasksController = async (req, res, next) => {
   try {
-    const tasks = await Task.find(); // Veritabanındaki tüm kartları çekiyoruz reis
+    const tasks = await Task.find(); // Veritabanındaki tüm kartları çekiyoruz
     res.status(200).json({
       status: 200,
       message: 'Tüm kartlar başarıyla getirildi reis!',
