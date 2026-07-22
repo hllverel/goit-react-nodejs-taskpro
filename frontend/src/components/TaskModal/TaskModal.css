@@ -1,0 +1,231 @@
+/* Ekranı kaplayan yarı şeffaf backdrop katmanı */
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: rgba(
+    21,
+    21,
+    21,
+    0.5
+  ); /* Figma'ya uygun hafif şeffaf karanlık */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999; /* En üstte kalması kesinleşsin */
+}
+
+/* Ana Modal Kutusu (Figma Pop Up) */
+.modal-content {
+  background-color: #151515; /* Figma'daki o tam koyu arka plan */
+  color: #fff;
+  border: 1px solid rgba(190, 219, 176, 0.3); /* İnce yeşilimsi/beyaz zarif border */
+  border-radius: 8px;
+  padding: 24px;
+  width: 350px; /* İçerideki elemanların 302px sığması için ideal dış kutu genişliği */
+  box-sizing: border-box;
+  position: relative; /* Kapatma butonunun doğru konumlanması için şart */
+  font-family: 'Poppins', sans-serif;
+}
+
+/* Kapatma Butonu (X) */
+.modal-close-btn {
+  position: absolute;
+  top: 14px;
+  right: 14px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  z-index: 10; /* Tıklanabilir olmasını garanti altına alıyoruz */
+  padding: 5px;
+  line-height: 1;
+}
+
+/* Modal Başlığı */
+.modal-content h2 {
+  font-size: 18px;
+  font-weight: 500;
+  margin-top: 0;
+  margin-bottom: 24px;
+  text-align: left;
+}
+
+/* Form Elemanları Genel Düzen */
+.modal-content form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* İçerideki her şeyi ortala (302px genişliğe oturtacağız) */
+}
+
+/* Title Input (302x49) */
+.modal-content input[type='text'] {
+  width: 302px;
+  height: 49px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  padding: 0 18px;
+  font-size: 14px;
+  margin-bottom: 14px;
+  box-sizing: border-box;
+  outline: none;
+}
+
+/* Description Textarea (302x154) */
+.modal-content textarea {
+  width: 302px;
+  height: 154px;
+  background-color: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  border-radius: 8px;
+  color: #fff;
+  padding: 14px 18px;
+  font-size: 14px;
+  margin-bottom: 24px;
+  box-sizing: border-box;
+  outline: none;
+  resize: none;
+}
+
+/* Input Odaklanma Efekti (Figma'daki yeşilimsi çerçeve vurgusu için) */
+.modal-content input[type='text']:focus,
+.modal-content textarea:focus {
+  border-color: #bedbb0; /* Figma'daki açık yeşil ton çerçeve */
+}
+
+/* Label Color ve Deadline Bölümleri Hizalaması */
+.label-color-section,
+.deadline-section {
+  width: 302px; /* Elemanlarla aynı genişlikte */
+  text-align: left;
+  margin-bottom: 14px;
+}
+
+.label-color-section label,
+.deadline-section label {
+  display: block;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 4px;
+}
+
+/* Renk Seçenekleri */
+.color-options {
+  display: flex;
+  gap: 8px;
+}
+
+.color-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  cursor: pointer;
+  box-sizing: border-box;
+}
+
+/* Figma Gerçek Renk Kodları */
+.color-dot.blue {
+  background-color: #8fa0e8;
+}
+.color-dot.pink {
+  background-color: #e894b6;
+}
+.color-dot.green {
+  background-color: #8bc39a;
+}
+.color-dot.gray {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* Seçili rengin ortasına nokta koymak yerine Figma'daki gibi dışına çember atalım */
+.color-dot.selected {
+  outline: 2px solid #fff;
+  outline-offset: 2px;
+}
+
+/* Deadline Picker */
+.deadline-picker {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #bedbb0; /* Figma'daki yeşil yazı rengi */
+  cursor: pointer;
+}
+
+.arrow-down {
+  font-size: 10px;
+  color: #bedbb0;
+}
+
+/* En Alttaki Yeşil Buton (302x49) */
+.submit-btn {
+  width: 302px;
+  height: 49px;
+  background-color: #bedbb0; /* Figma'daki o tatlı açık yeşil buton rengi */
+  color: #161616; /* Yazı rengi koyu */
+  border: none;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+/* Butonun içindeki siyah kare ikon */
+.plus-icon {
+  background-color: #161616;
+  color: #fff;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+}
+/* ==========================================================================
+   📱 SADECE MOBİL RESPONSIVE AYARLARI (Maksimum 480px genişlik için)
+   ========================================================================== */
+@media screen and (max-width: 480px) {
+  /* Ana dış kutuyu mobil ekranlara sığacak şekilde daraltıyoruz */
+  .modal-content {
+    width: 315px; /* 287px elemanların sığması için ideal dış genişlik */
+    padding: 20px;
+  }
+
+  /* Form elemanlarının hizalanacağı alanı sadece mobilde 287px yapıyoruz */
+  .modal-content form,
+  .label-color-section,
+  .deadline-section {
+    width: 287px;
+  }
+
+  /* Title Input Mobil Ölçüsü (287x49) */
+  .modal-content input[type='text'] {
+    width: 287px;
+    height: 49px;
+  }
+
+  /* Description Textarea Mobil Ölçüsü (287x154) */
+  .modal-content textarea {
+    width: 287px;
+    height: 154px;
+  }
+
+  /* En Alttaki Yeşil Buton Mobil Ölçüsü (287x49) */
+  .submit-btn {
+    width: 287px;
+    height: 49px;
+  }
+}

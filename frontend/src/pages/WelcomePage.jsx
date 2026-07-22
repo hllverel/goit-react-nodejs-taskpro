@@ -1,9 +1,8 @@
-
 function WelcomePage() {
-    return (
-      <>
-        <h2>WelcomePage</h2>
-      </>
+  return (
+    <>
+      <h2>WelcomePage</h2>
+    </>
   );
 }
 
