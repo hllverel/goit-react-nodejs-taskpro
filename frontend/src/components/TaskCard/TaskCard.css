@@ -1,0 +1,197 @@
+/* Ana Görev Kartı Kutusu (Masaüstü ve Tablet: 334x154) */
+.task-card {
+  background-color: #121212;
+  border-radius: 8px;
+  width: 334px;
+  height: 154px;
+  display: flex;
+  position: relative;
+  overflow: hidden;
+  margin-bottom: 8px;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+}
+
+/* Sol Taraftaki İnce Dikey Renk Çizgisi */
+.card-label-line {
+  width: 4px;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+}
+
+/* Öncelik Renk Kodları */
+.card-label-line.blue,
+.priority-circle.blue {
+  background-color: #8fa0e8;
+}
+.card-label-line.pink,
+.priority-circle.pink {
+  background-color: #e894b6;
+}
+.card-label-line.green,
+.priority-circle.green {
+  background-color: #8bc39a;
+}
+.card-label-line.gray,
+.priority-circle.gray {
+  background-color: rgba(255, 255, 255, 0.3);
+}
+
+/* İçerik Alanı Yapısı */
+.card-content {
+  flex: 1;
+  padding: 14px 20px 14px 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+/* Üst Kısım: Başlık */
+.card-header {
+  text-align: left;
+}
+
+.card-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  color: #fff;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-transform: capitalize;
+  text-overflow: ellipsis;
+  max-width: 280px;
+  text-align: left;
+}
+
+/* Orta Kısım: Açıklama Metni */
+.card-description {
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.5);
+  line-height: 18px;
+  margin: 6px 0 0 0;
+  text-align: left;
+  max-height: 52px;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.card-description::-webkit-scrollbar {
+  width: 2px;
+}
+
+.card-description::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.card-description::-webkit-scrollbar-thumb {
+  background-color: rgba(255, 255, 255, 0.2);
+  border-radius: 10px;
+}
+
+/* Alt Kısım (Çizgi ve Detaylar) */
+.card-footer {
+  display: flex;
+  flex-direction: column;
+  margin-top: auto;
+}
+
+/* İnce Yatay Ayırıcı Çizgi */
+.divider-line {
+  height: 1px;
+  background-color: rgba(255, 255, 255, 0.1);
+  width: 100%;
+  margin-bottom: 8px;
+}
+
+/* Footer Alt Satır Düzeni */
+.footer-bottom-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+/* Sol taraftaki Priority ve Deadline yan yana hizalaması */
+.footer-meta-info {
+  display: flex;
+  gap: 14px;
+  text-align: left;
+}
+
+.meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.meta-label {
+  font-size: 8px;
+  color: rgba(255, 255, 255, 0.3);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  text-align: left;
+}
+
+/* Priority Yuvarlak ve Yazı Grubu */
+.priority-value-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  justify-content: flex-start;
+}
+
+.priority-circle {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.priority-text,
+.meta-value {
+  font-size: 10px;
+  color: #fff;
+  white-space: nowrap;
+}
+
+/* Sağ Alt Köşedeki 3'lü İkon Düzeni */
+.card-actions {
+  display: flex;
+  gap: 8px;
+}
+
+/* İkon Butonları Stili */
+.action-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: rgba(255, 255, 255, 0.5);
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition:
+    color 0.2s,
+    transform 0.2s;
+}
+
+.action-btn:hover {
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+/* ==========================================================================
+   MOBİL RESPONSIVE AYARLARI (Maksimum 480px ekranlar için: 335x154)
+   ========================================================================== */
+@media screen and (max-width: 480px) {
+  .task-card {
+    width: 335px;
+    height: 154px;
+  }
+}
