@@ -13,6 +13,10 @@
   flex-direction: column;
 }
 
+.sidebar-top .logo__text {
+  color: #fff;
+}
+
 .boards-section {
   margin-top: 60px;
   padding: 0 24px;
