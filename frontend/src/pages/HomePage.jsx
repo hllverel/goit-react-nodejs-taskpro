@@ -3,7 +3,7 @@ import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import MainDashboard from "../components/MainDashboard/MainDashboard.jsx";
 import { BoardWorkspaceProvider } from "../components/BoardWorkspace/BoardWorkspaceContext.jsx";
 
-function HamePage() {
+function HomePage() {
     return (
       <BoardWorkspaceProvider>
         <div className="taskpro-layout">
@@ -17,4 +17,4 @@ function HamePage() {
   );
 }
 
-export default HamePage;
+export default HomePage;
