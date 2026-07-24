@@ -1,0 +1,38 @@
+type: object
+required:
+  - _id
+  - title
+  - description
+  - labelColor
+  - deadline
+  - columnId
+  - owner
+properties:
+  _id:
+    description: "Task's id"
+    type: string
+    example: 65e4decdd286b30065d54af9
+  title:
+    description: "Task's title"
+    type: string
+    example: 'Send sales report'
+  description:
+    description: "Task's description"
+    type: string
+    example: 'quarterly report'
+  labelColor:
+    description: "Task's label color"
+    type: string
+    example: 'blue'
+  deadline:
+    description: "Task's deadline"
+    type: string
+  columnId:
+    description: "Task's column id"
+    type: string
+    example: '65e4decdd286b30065d54af4'
+  owner:
+    description: "User's id"
+    type: string
+    format: objectId
+    example: 65e4decdd286b30065d54af9

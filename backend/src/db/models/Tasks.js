@@ -28,6 +28,11 @@ const taskSchema = new Schema(
       required: true,
       default: 'todo',
     },
+    owner: {
+      type: Schema.Types.ObjectId,
+      ref: 'User',
+      required: true,
+    },
   },
   {
     timestamps: true, // Kartın oluşturulma (createdAt) ve güncellenme (updatedAt) tarihlerini otomatik tutar
