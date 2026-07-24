@@ -1,116 +1,182 @@
 .header {
-  width: 100%;
   height: 68px;
-  background: var(--header-bg, #161616);
+  flex: 0 0 68px;
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: space-between;
+  gap: 18px;
   padding: 0 24px;
-  position: relative;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  background: var(--panel-bg-2);
   box-sizing: border-box;
 }
 
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  min-width: 0;
-  flex-shrink: 1;
-}
-
-.theme-switcher {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.theme-switcher,
-.user-info {
-  min-width: 0;
-}
-
-.user-info span {
-  display: none; /* already have this, just confirming */
-}
-
-.theme-text {
-  font-size: 14px;
-  color: #9fa4b0;
-}
-
-.theme-switcher select {
-  background: transparent;
-  border: none;
-  color: #bedbb0;
-  font-size: 14px;
-  cursor: pointer;
-  outline: none;
-}
-
-.user-info {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  background: transparent;
-  border: none;
-  cursor: pointer;
-  color: #ffffff;
-  font-size: 14px;
-}
-
-.user-info img {
-  width: 38px;
-  height: 38px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-
-.profile-dropdown {
-  position: absolute;
-  top: 72px;
-  right: 24px;
-  width: 180px;
-  background: #1f1f1f;
-  border-radius: 8px;
-  padding: 16px;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.35);
-  z-index: 100;
-}
-
-.profile-dropdown-item {
-  display: block;
-  width: 100%;
-  margin: 0;
+.menu-button {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
   padding: 0;
-  color: #ffffff;
-  background: none;
+  color: var(--text-main);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+}
+
+.menu-button svg {
+  width: 24px;
+  height: 24px;
+  stroke: currentColor;
+}
+
+.menu-button:hover {
+  color: #bedbb0;
+}
+
+.header .theme-dropdown {
+  margin-left: auto;
+}
+
+.theme-dropdown {
+  position: relative;
+}
+
+.theme-select-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  color: var(--text-main);
+  background: transparent;
   border: 0;
   font: inherit;
-  text-align: left;
+  font-size: 12px;
   cursor: pointer;
 }
 
-.profile-dropdown-item:hover {
-  color: #bedbb0;
+.theme-select-button svg {
+  width: 14px;
+  height: 14px;
+  stroke: currentColor;
+  transition: transform 160ms ease;
 }
 
-@media screen and (max-width: 768px) {
+.theme-select-button.is-open svg {
+  transform: rotate(180deg);
+}
+
+.theme-menu {
+  position: absolute;
+  top: calc(100% + 12px);
+  right: 0;
+  z-index: 10;
+  width: 104px;
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 14px 16px;
+  background: var(--surface-bg);
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  box-shadow: 0 18px 40px var(--shadow-strong);
+  list-style: none;
+}
+
+.theme-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  color: var(--text-muted);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  font-size: 15px;
+  line-height: 1.2;
+  cursor: pointer;
+  transition: color 160ms ease, transform 160ms ease;
+}
+
+.theme-option:hover {
+  transform: scale(1.06);
+}
+
+.theme-option.is-selected {
+  color: var(--accent);
+}
+
+.theme-option-light:hover {
+  color: #8aa977;
+}
+
+.theme-option-dark:hover {
+  color: var(--accent);
+}
+
+.theme-option-violet:hover {
+  color: #5255bc;
+}
+
+.theme-color-dot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  transition: transform 160ms ease, background 160ms ease;
+}
+
+.theme-option:hover .theme-color-dot {
+  transform: scale(1.35);
+}
+
+.theme-option-light .theme-color-dot {
+  background: #f6f6f6;
+}
+
+.theme-option-dark .theme-color-dot {
+  background: #bedbb0;
+}
+
+.theme-option-violet .theme-color-dot {
+  background: #5255bc;
+}
+
+.theme-violet .theme-option-dark:hover,
+.theme-violet .theme-option-dark.is-selected {
+  color: #5255bc;
+}
+
+.theme-light .theme-option-light:hover,
+.theme-light .theme-option-light.is-selected,
+.theme-light .theme-option-dark:hover,
+.theme-light .theme-option-violet:hover {
+  color: #8aa977;
+}
+
+.theme-violet .theme-option-light:hover,
+.theme-violet .theme-option-light.is-selected,
+.theme-violet .theme-option-violet:hover,
+.theme-violet .theme-option-violet.is-selected {
+  color: #5255bc;
+}
+
+@media (min-width: 1440px) {
   .header {
-    padding: 0 16px;
-    height: 60px;
+    justify-content: flex-end;
   }
 
-  .header-right {
-    gap: 16px;
-  }
-
-  .theme-text {
+  .menu-button {
     display: none;
   }
 
-  .user-info img {
-    width: 32px;
-    height: 32px;
+  .header .theme-dropdown {
+    margin-left: 0;
+  }
+}
+
+@media (max-width: 374px) {
+  .header {
+    gap: 10px;
+    padding: 0 14px;
   }
 }

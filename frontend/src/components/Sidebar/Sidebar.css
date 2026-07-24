@@ -1,110 +1,123 @@
 .sidebar {
   width: 260px;
-  height: 100vh;
-  background: #121212;
+  height: 100svh;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  color: #fff;
+  padding: 26px 24px 28px;
+  background: var(--panel-bg);
+  box-sizing: border-box;
+  color: var(--text-main);
+  text-align: left;
+  position: fixed;
+  inset: 0 auto 0 0;
+  z-index: 15;
+  transform: translateX(-100%);
+  transition: transform 200ms ease;
+  box-shadow: 18px 0 44px rgba(0, 0, 0, 0.32);
 }
 
-.sidebar-top {
-  display: flex;
-  flex-direction: column;
+.taskpro-layout.is-sidebar-open .sidebar {
+  transform: translateX(0);
 }
 
-.sidebar-top .logo__text {
-  color: #fff;
-}
-
-.boards-section {
-  margin-top: 60px;
-  padding: 0 24px;
-}
-
-.boards-title {
-  color: rgba(255,255,255,.5);
-  font-size: 12px;
-  letter-spacing: .04em;
-  margin-bottom: 14px;
-}
-
-.create-board-btn {
-  width: 100%;
-  height: 70px;
-  border: 1px solid rgba(255,255,255,.1);
-  background: transparent;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: white;
-  padding: 0 18px;
+.sidebar-support {
+  margin-top: auto;
+  padding: 24px 20px 20px;
+  background: var(--surface-bg-2);
   border-radius: 8px;
-  cursor: pointer;
-  transition: .3s;
 }
 
-.create-board-btn:hover {
-  border-color: #BEDBB0;
+.support-image {
+  width: 46px;
+  height: 46px;
+  display: grid;
+  place-items: end center;
+  margin-bottom: 24px;
+  background:
+    radial-gradient(circle at 50% 16%, #8dbb6c 0 5px, transparent 6px),
+    radial-gradient(circle at 34% 26%, #6a9f49 0 5px, transparent 6px),
+    radial-gradient(circle at 66% 26%, #6a9f49 0 5px, transparent 6px),
+    radial-gradient(circle at 50% 36%, #9bc878 0 7px, transparent 8px);
 }
 
-.plus {
-  width: 28px;
-  height: 28px;
-  background: #BEDBB0;
-  color: black;
-  border-radius: 6px;
-  display: flex;
-  justify-content: center;
+.support-image span {
+  width: 30px;
+  height: 24px;
+  display: block;
+  background: linear-gradient(180deg, #d49a50, #b77733);
+  border-radius: 4px 4px 12px 12px;
+}
+
+.sidebar-support p {
+  margin: 0 0 18px;
+  color: var(--text-main);
+  font-size: 13px;
+  line-height: 1.35;
+}
+
+.support-button,
+.logout-button {
+  display: inline-flex;
   align-items: center;
-  font-size: 22px;
-  font-weight: bold;
+  gap: 10px;
+  color: var(--text-main);
+  background: transparent;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
 }
 
-.sidebar-bottom {
-  padding: 24px;
-}
-
-.help-card {
-  background: #1F1F1F;
-  border-radius: 12px;
-  padding: 18px;
-}
-
-.help-title {
-  font-size: 16px;
-  margin-bottom: 12px;
-}
-
-.help-btn {
-  width: 100%;
-  height: 42px;
-  border: none;
-  background: #BEDBB0;
-  color: #161616;
+.support-button {
+  font-size: 13px;
   font-weight: 600;
-  border-radius: 8px;
-  cursor: pointer;
 }
 
-.logout-btn {
-  margin-top: 24px;
-  width: 100%;
-  height: 48px;
-  border: none;
-  background: transparent;
-  color: white;
-  cursor: pointer;
+.support-button svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.logout-button {
+  margin-top: 30px;
   font-size: 16px;
-  transition: .3s;
+  font-weight: 500;
 }
 
-.logout-btn:hover {
-  color: #BEDBB0;
+.logout-button svg {
+  width: 26px;
+  height: 26px;
+  color: var(--accent);
+  stroke: currentColor;
 }
 
-@media (max-width:768px) {
+.theme-violet .sidebar,
+.theme-violet .sidebar p,
+.theme-violet .support-button,
+.theme-violet .logout-button {
+  color: #fff;
+}
+
+.theme-violet .sidebar-support {
+  background: rgba(255, 255, 255, 0.24);
+}
+
+.theme-violet .logout-button svg {
+  color: #fff;
+}
+
+@media (min-width: 1440px) {
+  .sidebar {
+    position: static;
+    transform: none;
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 374px) {
   .sidebar {
     width: 225px;
+    padding-inline: 20px;
   }
 }

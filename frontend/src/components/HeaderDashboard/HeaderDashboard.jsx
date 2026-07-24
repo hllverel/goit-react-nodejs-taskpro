@@ -1,43 +1,20 @@
-import { useState } from "react";
-import { useParams } from "react-router-dom";
-import "./HeaderDashboard.css";
+import './HeaderDashboard.css';
+import { useBoardWorkspace } from '../BoardWorkspace/useBoardWorkspace.js';
 
-export default function HeaderDashboard() {
-  const { boardName } = useParams();
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
+function HeaderDashboard() {
+    const { activeBoard, openFilters } = useBoardWorkspace();
 
-  return (
-    <div className="header-dashboard">
-      <h2 className="board-title">
-        {boardName ? decodeURIComponent(boardName) : "Dashboard"}
-      </h2>
-
-      <button
-        className="filters-btn"
-        onClick={() => setIsFilterOpen(!isFilterOpen)}
-      >
-        <svg
-          width="16"
-          height="16"
-          viewBox="0 0 24 24"
-          fill="none"
-        >
-          <path
-            d="M4 6H20M7 12H17M10 18H14"
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-          />
-        </svg>
-
-        <span>Filters</span>
-      </button>
-
-      {isFilterOpen && (
-        <div className="filters-modal">
-          <p>Filters Modal</p>
-        </div>
-      )}
-    </div>
+    return (
+      <div className="header-dashboard">
+        {activeBoard && <h1>{activeBoard.title}</h1>}
+        <button className="filters-button" type="button" onClick={openFilters}>
+          <svg className="filters-icon" aria-hidden="true">
+            <use href="/icons.svg#icon-filter" />
+          </svg>
+          Filters
+        </button>
+      </div>
   );
 }
+
+export default HeaderDashboard;

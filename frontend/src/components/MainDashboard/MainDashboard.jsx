@@ -1,13 +1,51 @@
 import './MainDashboard.css';
+import { useState } from 'react';
+import Loader from '../Loader/Loader.jsx';
+import TaskCard from '../TaskCard/TaskCard.jsx';
 import { useBoardWorkspace } from '../BoardWorkspace/useBoardWorkspace.js';
 
 function MainDashboard() {
     const {
       activeBoard,
+      isLoadingBoards,
       openCreateColumn,
       openEditColumn,
       deleteColumn,
+      openCreateTask,
+      openEditTask,
+      deleteTask,
+      moveTask,
+      selectedFilter,
     } = useBoardWorkspace();
+
+    const [draggedTask, setDraggedTask] = useState(null);
+    const [dropColumnId, setDropColumnId] = useState(null);
+    const columns = activeBoard?.columns || [];
+
+    const handleTaskDragStart = (event, task) => {
+      setDraggedTask(task);
+      event.dataTransfer.effectAllowed = 'move';
+      event.dataTransfer.setData('text/plain', task.id);
+    };
+
+    const handleTaskDrop = (event, targetColumnId) => {
+      event.preventDefault();
+
+      if (draggedTask && draggedTask.columnId !== targetColumnId) {
+        moveTask(draggedTask, targetColumnId);
+      }
+
+      setDraggedTask(null);
+      setDropColumnId(null);
+    };
+
+    if (isLoadingBoards) {
+      return (
+        <main className="main-dashboard main-dashboard-empty">
+          <Loader label="Loading boards" />
+        </main>
+      );
+    }
 
     if (!activeBoard) {
       return (
@@ -24,17 +62,9 @@ function MainDashboard() {
 
     return (
       <main className="main-dashboard">
-        <div className="dashboard-title-row">
-          <h1>{activeBoard.title}</h1>
-          <button className="filters-button" type="button">
-            <span aria-hidden="true">Y</span>
-            Filters
-          </button>
-        </div>
-
-        <div className="columns-scroll-area" aria-label={`${activeBoard.title} columns`}>
+        <div className="columns-scroll-area" aria-label={`${activeBoard?.title || 'Board'} columns`}>
           <div className="columns-track">
-            {activeBoard.columns.map((column) => (
+            {columns.map((column) => (
               <section className="task-column" key={column.id}>
                 <header className="task-column-header">
                   <h2>{column.title}</h2>
@@ -44,26 +74,77 @@ function MainDashboard() {
                       aria-label={`Edit ${column.title}`}
                       onClick={() => openEditColumn(column)}
                     >
-                      <span aria-hidden="true">/</span>
+                      <svg aria-hidden="true">
+                        <use href="/icons.svg#icon-edit" />
+                      </svg>
                     </button>
                     <button
                       type="button"
                       aria-label={`Delete ${column.title}`}
                       onClick={() => deleteColumn(column.id)}
                     >
-                      <span aria-hidden="true">x</span>
+                      <svg aria-hidden="true">
+                        <use href="/icons.svg#icon-trash" />
+                      </svg>
                     </button>
                   </div>
                 </header>
 
                 <div className="task-column-body">
-                  <p className="column-placeholder">Cards will be added by the card module.</p>
+                  <div
+                    className={`task-cards-list ${
+                      dropColumnId === column.id && draggedTask?.columnId !== column.id
+                        ? 'is-drop-target'
+                        : ''
+                    }`}
+                    onDragOver={(event) => {
+                      event.preventDefault();
+                      event.dataTransfer.dropEffect = 'move';
+                      setDropColumnId(column.id);
+                    }}
+                    onDragLeave={() => setDropColumnId(null)}
+                    onDrop={(event) => handleTaskDrop(event, column.id)}
+                  >
+                    {(column.cards || [])
+                      .filter((task) => selectedFilter === 'all' || task.labelColor === selectedFilter)
+                      .map((task) => (
+                      <TaskCard
+                        key={task.id}
+                        task={{ ...task, columnId: column.id }}
+                        columns={columns}
+                        onEdit={(selectedTask) => openEditTask(column.id, selectedTask)}
+                        onDelete={deleteTask}
+                        onMove={moveTask}
+                        onDragStart={handleTaskDragStart}
+                        onDragEnd={() => {
+                          setDraggedTask(null);
+                          setDropColumnId(null);
+                        }}
+                      />
+                    ))}
+                  </div>
+                  <button
+                    className="add-card-button"
+                    type="button"
+                    onClick={() => openCreateTask(column.id)}
+                  >
+                    <span className="add-card-icon" aria-hidden="true">
+                      <svg>
+                        <use href="/icons.svg#icon-plus" />
+                      </svg>
+                    </span>
+                    Add another card
+                  </button>
                 </div>
               </section>
             ))}
 
             <button className="add-column-button" type="button" onClick={openCreateColumn}>
-              <span className="add-column-icon" aria-hidden="true">+</span>
+              <span className="add-column-icon" aria-hidden="true">
+                <svg>
+                  <use href="/icons.svg#icon-plus" />
+                </svg>
+              </span>
               Add another column
             </button>
           </div>

@@ -1,73 +1,47 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
-import "./Sidebar.css";
+import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { useNavigate } from 'react-router-dom';
+import './Sidebar.css';
+import LogoComponent from '../LogoComponent/LogoComponent.jsx';
+import Navigation from '../Navigation/Navigation.jsx';
+import NeedHelpModal from '../NeedHelpModal/NeedHelpModal.jsx';
+import { logoutThunk } from '../../store/auth/authSlice.js';
 
-import LogoComponent from "../LogoComponent/LogoComponent.jsx";
-import Navigation from "../Navigation/Navigation.jsx";
-import BoardModal from "../BoardModal/BoardModal.jsx";
-import NeedHelp from "../NeedHelp/NeedHelp.jsx";
-import { logoutThunk } from "../../store/auth/authSlice.js";
+function Sidebar({ onNavigate }) {
+    const [isHelpModalOpen, setIsHelpModalOpen] = useState(false);
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
-  const dispatch = useDispatch();
-  const navigate = useNavigate();
+    const handleLogout = async () => {
+      await dispatch(logoutThunk());
+      navigate('/welcome', { replace: true });
+    };
 
-  const handleLogout = async () => {
-    try {
-      await dispatch(logoutThunk()).unwrap();
-      navigate("/welcome", { replace: true });
-    } catch (error) {
-      console.error("Logout failed", error);
-    }
-  };
-
-  return (
-    <aside className="sidebar">
-      <div className="sidebar-top">
+    return (
+      <aside className="sidebar">
         <LogoComponent />
-
-        <div className="boards-section">
-          <p className="boards-title">My boards</p>
-
-          <button
-            className="create-board-btn"
-            onClick={() => setIsOpen(true)}
-          >
-            <span className="plus">+</span>
-
-            <span>Create a new board</span>
+        <Navigation onNavigate={onNavigate} />
+        <div className="sidebar-support">
+          <div className="support-image" aria-hidden="true">
+            <span />
+          </div>
+          <p>If you need help with TaskPro, check out our support resources or reach out to our customer support team.</p>
+          <button className="support-button" type="button" onClick={() => setIsHelpModalOpen(true)}>
+            <svg aria-hidden="true">
+              <use href="/icons.svg#icon-help-circle" />
+            </svg>
+            Need help?
           </button>
         </div>
-
-        <Navigation />
-      </div>
-
-      <NeedHelp />
-
-        <div className="sidebar-bottom">
-          {/* <div className="help-card">
-            <p className="help-title">Need help?</p>
-
-            <button className="help-btn">
-              Open Help
-            </button>
-          </div> */}
-        
-        <button
-          className="logout-btn"
-          onClick={handleLogout}
-        >
-          Logout
+        <button className="logout-button" type="button" onClick={handleLogout}>
+          <svg aria-hidden="true">
+            <use href="/icons.svg#icon-logout" />
+          </svg>
+          Log out
         </button>
-      </div>
-
-      {isOpen && (
-        <BoardModal
-          onClose={() => setIsOpen(false)}
-        />
-      )}
-    </aside>
+        {isHelpModalOpen && <NeedHelpModal onClose={() => setIsHelpModalOpen(false)} />}
+      </aside>
   );
 }
+
+export default Sidebar;

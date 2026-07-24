@@ -4,10 +4,14 @@
   padding: 28px;
   color: #fff;
   text-align: left;
-  background: #151515;
-  border: 1px solid #253021;
+  background:
+    radial-gradient(circle at 50% 0, rgba(190, 219, 176, 0.08), transparent 42%),
+    linear-gradient(180deg, #171717 0%, #121212 100%);
+  border: 1px solid rgba(190, 219, 176, 0.55);
   border-radius: 8px;
-  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
+  box-shadow:
+    inset 0 1px 0 rgba(190, 219, 176, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
 .column-modal-title {

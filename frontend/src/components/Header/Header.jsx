@@ -1,78 +1,75 @@
-import { useState } from "react";
-import "./Header.css";
-import HeaderDashboard from "../HeaderDashboard/HeaderDashboard";
-import EditProfileModal from "../EditProfileModal/EditProfileModal.jsx";
-import { useAuth } from "../../hooks/useAuth.js";
-import { getAvatarUrl } from "../../utils/avatar.js";
+import { useEffect, useRef, useState } from 'react';
+import './Header.css';
+import UserInfo from '../UserInfo/UserInfo.jsx';
 
 const themes = [
-  { id: "light", label: "Light" },
-  { id: "violet", label: "Violet" },
-  { id: "dark", label: "Dark" },
+  { id: 'light', label: 'Light' },
+  { id: 'dark', label: 'Dark' },
+  { id: 'violet', label: 'Violet' },
 ];
 
-export default function Header() {
-  const [theme, setTheme] = useState("dark");
-  const [showProfile, setShowProfile] = useState(false);
-  const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
-  const { user } = useAuth();
+function Header({ currentTheme, onThemeChange, onMenuOpen }) {
+    const [isThemeOpen, setIsThemeOpen] = useState(false);
+    const themeDropdownRef = useRef(null);
 
-  const displayName = user?.name || "User";
-  const avatarUrl = getAvatarUrl(user);
+    useEffect(() => {
+      if (!isThemeOpen) return undefined;
 
-  const handleOpenEditProfile = () => {
-    setIsEditProfileOpen(true);
-    setShowProfile(false);
-  };
+      const handlePointerDown = (event) => {
+        if (!themeDropdownRef.current?.contains(event.target)) {
+          setIsThemeOpen(false);
+        }
+      };
 
-  const handleThemeChange = (e) => {
-    const value = e.target.value;
-    setTheme(value);
-    document.body.setAttribute("data-theme", value);
-  };
+      document.addEventListener('pointerdown', handlePointerDown);
 
-  return (
-    <header className="header">
-      <HeaderDashboard />
+      return () => document.removeEventListener('pointerdown', handlePointerDown);
+    }, [isThemeOpen]);
 
-      <div className="header-right">
-        <div className="theme-switcher">
-          <span className="theme-text">Theme</span>
-
-          <select value={theme} onChange={handleThemeChange}>
-            {themes.map((item) => (
-              <option key={item.id} value={item.id}>
-                {item.label}
-              </option>
-            ))}
-          </select>
-        </div>
-
-        <button
-          className="user-info"
-          onClick={() => setShowProfile(!showProfile)}
-        >
-          <span>{displayName}</span>
-
-          <img src={avatarUrl} alt={displayName} />
+    return (
+      <header className="header">
+        <button className="menu-button" type="button" aria-label="Open sidebar" onClick={onMenuOpen}>
+          <svg aria-hidden="true">
+            <use href="/icons.svg#icon-menu" />
+          </svg>
         </button>
-
-        {showProfile && (
-          <div className="profile-dropdown">
-            <button
-              type="button"
-              className="profile-dropdown-item"
-              onClick={handleOpenEditProfile}
-            >
-              Edit Profile
-            </button>
-          </div>
-        )}
-      </div>
-
-      {isEditProfileOpen && (
-        <EditProfileModal onClose={() => setIsEditProfileOpen(false)} />
-      )}
-    </header>
+        <div className="theme-dropdown" ref={themeDropdownRef}>
+          <button
+            className={`theme-select-button ${isThemeOpen ? 'is-open' : ''}`}
+            type="button"
+            aria-expanded={isThemeOpen}
+            onClick={() => setIsThemeOpen((current) => !current)}
+          >
+            Theme
+            <svg aria-hidden="true">
+              <use href="/icons.svg#icon-chevron-down" />
+            </svg>
+          </button>
+          {isThemeOpen && (
+            <ul className="theme-menu">
+              {themes.map((theme) => (
+                <li key={theme.id}>
+                  <button
+                    className={`theme-option theme-option-${theme.id} ${
+                      currentTheme === theme.id ? 'is-selected' : ''
+                    }`}
+                    type="button"
+                    onClick={() => {
+                      onThemeChange(theme.id);
+                      setIsThemeOpen(false);
+                    }}
+                  >
+                    <span>{theme.label}</span>
+                    <span className="theme-color-dot" aria-hidden="true" />
+                  </button>
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
+        <UserInfo/>
+      </header>
   );
 }
+
+export default Header;

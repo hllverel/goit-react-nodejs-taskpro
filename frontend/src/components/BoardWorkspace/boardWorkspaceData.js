@@ -9,7 +9,6 @@ export const boardIconOptions = [
   { id: 'hexagon', label: 'Hexagon' },
 ];
 
-// Replace these preview values with the background image payload returned by the backend.
 export const boardBackgroundOptions = [
   { id: 'none', label: 'No background', preview: 'linear-gradient(135deg, #1b1b1b, #111)' },
   { id: 'sakura', label: 'Sakura', preview: 'linear-gradient(135deg, #f7b7c9, #c9eef1)' },

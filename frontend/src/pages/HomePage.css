@@ -1,0 +1,460 @@
+.taskpro-theme {
+  --app-bg: #1f1f1f;
+  --panel-bg: #121212;
+  --panel-bg-2: #161616;
+  --surface-bg: #121212;
+  --surface-bg-2: #1f1f1f;
+  --modal-bg: linear-gradient(180deg, #171717 0%, #121212 100%);
+  --text-main: #fff;
+  --text-muted: rgba(255, 255, 255, 0.55);
+  --text-soft: rgba(255, 255, 255, 0.3);
+  --line-soft: rgba(255, 255, 255, 0.1);
+  --accent: #bedbb0;
+  --accent-strong: #9dc888;
+  --button-text: #161616;
+  --shadow-strong: rgba(0, 0, 0, 0.45);
+}
+
+.taskpro-theme.theme-light {
+  --app-bg: #f6f6f7;
+  --panel-bg: #fff;
+  --panel-bg-2: #fcfcfc;
+  --surface-bg: #fff;
+  --surface-bg-2: #f6f6f7;
+  --modal-bg: #fff;
+  --text-main: #161616;
+  --text-muted: rgba(22, 22, 22, 0.62);
+  --text-soft: rgba(22, 22, 22, 0.34);
+  --line-soft: rgba(22, 22, 22, 0.1);
+  --accent: #bedbb0;
+  --accent-strong: #9dc888;
+  --button-text: #161616;
+  --shadow-strong: rgba(0, 0, 0, 0.12);
+  --modal-tint: rgba(190, 219, 176, 0.12);
+  --modal-line: rgba(190, 219, 176, 0.6);
+}
+
+.taskpro-theme.theme-violet {
+  --app-bg: #ecedfd;
+  --panel-bg: #5255bc;
+  --panel-bg-2: #fff;
+  --surface-bg: #fff;
+  --surface-bg-2: #f2f2ff;
+  --modal-bg: #fff;
+  --text-main: #161616;
+  --text-muted: rgba(22, 22, 22, 0.62);
+  --text-soft: rgba(22, 22, 22, 0.34);
+  --line-soft: rgba(22, 22, 22, 0.1);
+  --accent: #5255bc;
+  --accent-strong: #7b7ede;
+  --button-text: #fff;
+  --shadow-strong: rgba(82, 85, 188, 0.18);
+  --modal-tint: rgba(82, 85, 188, 0.1);
+  --modal-line: rgba(82, 85, 188, 0.55);
+}
+
+.taskpro-layout {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100svh;
+  display: block;
+  background: var(--app-bg);
+  overflow: hidden;
+  text-align: left;
+}
+
+.sidebar-backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 14;
+  display: block;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+  border: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 180ms ease;
+}
+
+.taskpro-layout.is-sidebar-open .sidebar-backdrop {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.taskpro-content {
+  width: 100%;
+  height: 100%;
+  min-width: 0;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1440px) {
+  .taskpro-layout {
+    display: grid;
+    grid-template-columns: 260px minmax(0, 1fr);
+  }
+
+  .sidebar-backdrop {
+    display: none;
+  }
+}
+
+.theme-light .header,
+.theme-light .sidebar,
+.theme-light .task-column-header,
+.theme-light .task-card,
+.theme-light .task-move-menu,
+.theme-light .theme-menu,
+.theme-light .filters-modal,
+.theme-light .board-modal,
+.theme-light .column-modal,
+.theme-light .task-modal,
+.theme-light .need-help-modal,
+.theme-light .profile-modal {
+  color: #161616;
+  background: #fff;
+}
+
+.theme-light .sidebar-support,
+.theme-light .task-calendar,
+.theme-light .board-color-popover {
+  color: #161616;
+  background: #f6f6f7;
+}
+
+.theme-light .taskpro-layout {
+  background: #f6f6f7;
+}
+
+.theme-light .screens-page {
+  background: var(--board-dashboard-background, #f6f6f7);
+}
+
+.theme-light .header-dashboard,
+.theme-light .header-dashboard h1,
+.theme-light .filters-button,
+.theme-light .user-info,
+.theme-light .theme-select-button,
+.theme-light .sidebar,
+.theme-light .sidebar p,
+.theme-light .support-button,
+.theme-light .logout-button,
+.theme-light .navigation,
+.theme-light .create-board-button,
+.theme-light .boards-link,
+.theme-light .boards-link.is-active,
+.theme-light .task-column-header h2,
+.theme-light .task-card h3,
+.theme-light .task-card-meta strong,
+.theme-light .board-modal-title,
+.theme-light .board-modal-fieldset legend,
+.theme-light .column-modal-title,
+.theme-light .task-modal h2,
+.theme-light .need-help-modal h2,
+.theme-light .profile-modal h2,
+.theme-light .filters-modal h2,
+.theme-light .filters-heading h3 {
+  color: #161616;
+}
+
+.theme-light .modal-close-button,
+.theme-light .profile-modal-close,
+.theme-light .task-calendar-header strong,
+.theme-light .task-calendar-grid button {
+  color: #161616;
+}
+
+.theme-light .empty-dashboard-text,
+.theme-light .task-card p,
+.theme-light .task-card-meta span,
+.theme-light .task-card-actions button,
+.theme-light .boards-action-button,
+.theme-light .filters-option,
+.theme-light .theme-option {
+  color: rgba(22, 22, 22, 0.56);
+}
+
+.theme-light .theme-option:hover,
+.theme-light .theme-option.is-selected,
+.theme-light .filters-option:hover,
+.theme-light .filters-option.is-selected,
+.theme-light .filters-heading button:hover,
+.theme-light .task-date-trigger,
+.theme-light .task-calendar-header button {
+  color: #8aa977;
+}
+
+.theme-light .task-card-footer,
+.theme-light .filters-divider {
+  border-color: rgba(22, 22, 22, 0.1);
+}
+
+.theme-light .board-modal,
+.theme-light .column-modal,
+.theme-light .task-modal,
+.theme-light .need-help-modal,
+.theme-light .profile-modal {
+  background:
+    radial-gradient(circle at 50% 0, rgba(190, 219, 176, 0.14), transparent 45%),
+    #fff;
+  border-color: rgba(190, 219, 176, 0.65);
+  box-shadow:
+    inset 0 1px 0 rgba(190, 219, 176, 0.18),
+    0 24px 60px rgba(0, 0, 0, 0.12);
+}
+
+.theme-light .board-modal-input,
+.theme-light .column-modal-input,
+.theme-light .task-modal input[type='text'],
+.theme-light .task-modal textarea,
+.theme-light .need-help-modal input,
+.theme-light .need-help-modal textarea,
+.theme-light .profile-field input,
+.theme-light .task-calendar {
+  color: #161616;
+  background: #fff;
+  border-color: #bedbb0;
+}
+
+.theme-light .board-modal-input:focus,
+.theme-light .column-modal-input:focus,
+.theme-light .task-modal input:focus,
+.theme-light .task-modal textarea:focus,
+.theme-light .need-help-modal input:focus,
+.theme-light .need-help-modal textarea:focus,
+.theme-light .profile-field input:focus {
+  border-color: #9dc888;
+}
+
+.theme-light .board-modal-submit,
+.theme-light .column-modal-submit,
+.theme-light .task-modal-submit,
+.theme-light .need-help-submit,
+.theme-light .profile-submit,
+.theme-light .add-card-button {
+  color: #161616;
+  background: #bedbb0;
+}
+
+.theme-light .submit-icon,
+.theme-light .task-modal-submit span,
+.theme-light .add-card-icon {
+  color: #fff;
+  background: #161616;
+}
+
+.theme-light .logo-mark,
+.theme-light .add-column-icon {
+  color: #fff;
+  background: #161616;
+}
+
+.theme-light .task-calendar-weekdays,
+.theme-light .task-modal-fieldset legend,
+.theme-light .task-deadline-label,
+.theme-light .filters-heading button {
+  color: rgba(22, 22, 22, 0.5);
+}
+
+.theme-light .task-calendar-grid button.is-muted {
+  color: rgba(22, 22, 22, 0.25);
+}
+
+.theme-light .task-calendar-grid button:disabled {
+  color: rgba(22, 22, 22, 0.16);
+}
+
+.theme-light .task-calendar-grid button.is-selected,
+.theme-light .task-calendar-grid button:not(:disabled):hover {
+  color: #161616;
+  background: #bedbb0;
+}
+
+.theme-light .filters-dot.gray {
+  background: rgba(22, 22, 22, 0.3);
+}
+
+.theme-light .profile-avatar-preview {
+  background: #f6f6f7;
+}
+
+.theme-violet .taskpro-layout {
+  background: #ecedfd;
+}
+
+.theme-violet .screens-page {
+  background: var(--board-dashboard-background, #ecedfd);
+}
+
+.theme-violet .header,
+.theme-violet .task-column-header,
+.theme-violet .task-card,
+.theme-violet .theme-menu,
+.theme-violet .filters-modal,
+.theme-violet .board-modal,
+.theme-violet .column-modal,
+.theme-violet .task-modal,
+.theme-violet .need-help-modal,
+.theme-violet .profile-modal,
+.theme-violet .task-move-menu {
+  color: #161616;
+  background: #fff;
+}
+
+.theme-violet .header-dashboard,
+.theme-violet .header-dashboard h1,
+.theme-violet .filters-button,
+.theme-violet .user-info,
+.theme-violet .theme-select-button,
+.theme-violet .task-column-header h2,
+.theme-violet .task-card h3,
+.theme-violet .task-card-meta strong,
+.theme-violet .board-modal-title,
+.theme-violet .board-modal-fieldset legend,
+.theme-violet .column-modal-title,
+.theme-violet .task-modal h2,
+.theme-violet .need-help-modal h2,
+.theme-violet .profile-modal h2,
+.theme-violet .filters-modal h2,
+.theme-violet .filters-heading h3 {
+  color: #161616;
+}
+
+.theme-violet .modal-close-button,
+.theme-violet .profile-modal-close,
+.theme-violet .task-calendar-header strong,
+.theme-violet .task-calendar-grid button {
+  color: #161616;
+}
+
+.theme-violet .empty-dashboard-text,
+.theme-violet .task-card p,
+.theme-violet .task-card-meta span,
+.theme-violet .task-card-actions button,
+.theme-violet .boards-action-button,
+.theme-violet .filters-option,
+.theme-violet .theme-option {
+  color: rgba(22, 22, 22, 0.56);
+}
+
+.theme-violet .theme-option:hover,
+.theme-violet .theme-option.is-selected,
+.theme-violet .filters-option:hover,
+.theme-violet .filters-option.is-selected,
+.theme-violet .filters-heading button:hover,
+.theme-violet .task-date-trigger,
+.theme-violet .task-calendar-header button {
+  color: #5255bc;
+}
+
+.theme-violet .task-card-footer,
+.theme-violet .filters-divider {
+  border-color: rgba(22, 22, 22, 0.1);
+}
+
+.theme-violet .board-modal,
+.theme-violet .column-modal,
+.theme-violet .task-modal,
+.theme-violet .need-help-modal,
+.theme-violet .profile-modal {
+  background:
+    radial-gradient(circle at 50% 0, rgba(82, 85, 188, 0.12), transparent 45%),
+    #fff;
+  border-color: rgba(82, 85, 188, 0.55);
+  box-shadow:
+    inset 0 1px 0 rgba(82, 85, 188, 0.16),
+    0 24px 60px rgba(82, 85, 188, 0.18);
+}
+
+.theme-violet .board-modal-input,
+.theme-violet .column-modal-input,
+.theme-violet .task-modal input[type='text'],
+.theme-violet .task-modal textarea,
+.theme-violet .need-help-modal input,
+.theme-violet .need-help-modal textarea,
+.theme-violet .profile-field input,
+.theme-violet .task-calendar {
+  color: #161616;
+  background: #fff;
+  border-color: #5255bc;
+}
+
+.theme-violet .board-modal-input:focus,
+.theme-violet .column-modal-input:focus,
+.theme-violet .task-modal input:focus,
+.theme-violet .task-modal textarea:focus,
+.theme-violet .need-help-modal input:focus,
+.theme-violet .need-help-modal textarea:focus,
+.theme-violet .profile-field input:focus {
+  border-color: #5255bc;
+}
+
+.theme-violet .board-modal-submit,
+.theme-violet .column-modal-submit,
+.theme-violet .task-modal-submit,
+.theme-violet .need-help-submit,
+.theme-violet .profile-submit,
+.theme-violet .add-card-button {
+  color: #fff;
+  background: #5255bc;
+}
+
+.theme-violet .submit-icon,
+.theme-violet .task-modal-submit span,
+.theme-violet .add-card-icon,
+.theme-violet .add-column-icon {
+  color: #5255bc;
+  background: #fff;
+}
+
+.theme-violet .logo-mark {
+  color: #5255bc;
+  background: #ecedfd;
+}
+
+.theme-violet .logo-component {
+  color: #fff;
+}
+
+.theme-violet .task-calendar-weekdays,
+.theme-violet .task-modal-fieldset legend,
+.theme-violet .task-deadline-label,
+.theme-violet .filters-heading button {
+  color: rgba(22, 22, 22, 0.5);
+}
+
+.theme-violet .task-calendar-grid button.is-muted {
+  color: rgba(22, 22, 22, 0.25);
+}
+
+.theme-violet .task-calendar-grid button:disabled {
+  color: rgba(22, 22, 22, 0.16);
+}
+
+.theme-violet .task-calendar-grid button.is-selected,
+.theme-violet .task-calendar-grid button:not(:disabled):hover {
+  color: #fff;
+  background: #5255bc;
+}
+
+.theme-violet .filters-option.is-selected .filters-dot {
+  outline-color: #5255bc;
+}
+
+.theme-violet .filters-dot.gray {
+  background: rgba(22, 22, 22, 0.3);
+}
+
+.theme-violet .profile-avatar-preview {
+  background: #f2f2ff;
+}
+
+.theme-light .modal-close-button:hover,
+.theme-light .profile-modal-close:hover,
+.theme-violet .modal-close-button:hover,
+.theme-violet .profile-modal-close:hover {
+  color: #e85d5d;
+}

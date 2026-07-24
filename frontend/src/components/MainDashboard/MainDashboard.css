@@ -1,10 +1,11 @@
 .main-dashboard {
+  flex: 1;
   min-width: 0;
-  min-height: 100%;
-  padding: 24px;
-  background: #1f1f1f;
+  min-height: 0;
+  padding: 18px 24px 24px;
+  background: transparent;
   box-sizing: border-box;
-  color: #fff;
+  color: var(--text-main);
   text-align: left;
 }
 
@@ -14,43 +15,16 @@
 }
 
 .empty-dashboard-text {
-  width: min(100%, 486px);
-  color: rgba(255, 255, 255, 0.5);
+  width: min(100%, 440px);
+  color: var(--text-muted);
   text-align: center;
-  font-size: 14px;
+  font-size: 12px;
   line-height: 1.35;
-}
-
-.dashboard-title-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 16px;
-  margin-bottom: 18px;
-}
-
-.dashboard-title-row h1 {
-  margin: 0;
-  color: #fff;
-  font-size: 22px;
-  font-weight: 600;
-  line-height: 1.2;
-}
-
-.filters-button {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  color: rgba(255, 255, 255, 0.82);
-  background: transparent;
-  border: 0;
-  font: inherit;
-  font-size: 14px;
-  cursor: pointer;
 }
 
 .columns-scroll-area {
   min-width: 0;
+  height: 100%;
   overflow-x: auto;
   padding-bottom: 12px;
 }
@@ -58,13 +32,16 @@
 .columns-track {
   display: flex;
   align-items: flex-start;
-  gap: 28px;
-  min-height: 420px;
+  gap: 24px;
+  min-height: 360px;
 }
 
 .task-column {
   width: 334px;
   flex: 0 0 334px;
+  max-height: 100%;
+  display: flex;
+  flex-direction: column;
 }
 
 .task-column-header,
@@ -73,7 +50,7 @@
   height: 56px;
   display: flex;
   align-items: center;
-  background: #121212;
+  background: var(--surface-bg);
   border: 0;
   border-radius: 8px;
   box-sizing: border-box;
@@ -88,7 +65,7 @@
   max-width: 220px;
   margin: 0;
   overflow: hidden;
-  color: #fff;
+  color: var(--text-main);
   font-size: 16px;
   font-weight: 600;
   text-overflow: ellipsis;
@@ -105,58 +82,136 @@
   height: 24px;
   display: grid;
   place-items: center;
-  color: rgba(255, 255, 255, 0.55);
+  color: var(--text-muted);
   background: transparent;
   border: 0;
   cursor: pointer;
 }
 
+.task-column-actions svg {
+  width: 16px;
+  height: 16px;
+  stroke: currentColor;
+}
+
 .task-column-actions button:hover {
-  color: #bedbb0;
+  color: var(--accent);
 }
 
 .task-column-body {
-  min-height: 150px;
+  min-height: 0;
+  display: flex;
+  flex: 1;
+  flex-direction: column;
   margin-top: 14px;
 }
 
-.column-placeholder {
-  padding: 20px;
-  color: rgba(255, 255, 255, 0.42);
-  background: #171717;
-  border: 1px dashed rgba(255, 255, 255, 0.12);
+.task-cards-list {
+  min-height: 24px;
+  display: grid;
+  gap: 8px;
+  overflow-y: auto;
+  padding-right: 4px;
+  border: 1px dashed transparent;
   border-radius: 8px;
-  font-size: 13px;
-  line-height: 1.4;
+  transition:
+    border-color 160ms ease,
+    background 160ms ease,
+    min-height 160ms ease;
 }
 
-.add-column-button {
+.task-cards-list.is-drop-target {
+  min-height: 90px;
+  background: rgba(190, 219, 176, 0.08);
+  border-color: var(--accent);
+}
+
+.task-cards-list::-webkit-scrollbar {
+  width: 6px;
+}
+
+.task-cards-list::-webkit-scrollbar-track {
+  background: var(--line-soft);
+  border-radius: 12px;
+}
+
+.task-cards-list::-webkit-scrollbar-thumb {
+  background: var(--accent);
+  border-radius: 12px;
+}
+
+.add-column-button,
+.add-card-button {
   width: 334px;
   flex: 0 0 334px;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
   gap: 12px;
-  color: #fff;
+  color: var(--text-main);
   padding: 0 18px;
   font: inherit;
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 600;
   cursor: pointer;
 }
 
-.add-column-button:hover {
-  background: #171717;
+.add-card-button {
+  width: 100%;
+  height: 56px;
+  flex: 0 0 auto;
+  margin-top: 14px;
+  color: var(--button-text);
+  background: var(--accent);
+  border: 0;
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-weight: 600;
 }
 
-.add-column-icon {
+.add-column-button:hover {
+  background: var(--surface-bg-2);
+}
+
+.add-card-button:hover {
+  filter: brightness(1.04);
+}
+
+.add-column-icon,
+.add-card-icon {
   width: 32px;
   height: 32px;
   display: grid;
   place-items: center;
-  color: #121212;
-  background: #fff;
+  color: var(--surface-bg);
+  background: var(--text-main);
   border-radius: 8px;
   font-size: 24px;
   line-height: 1;
+}
+
+.add-card-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+}
+
+.add-column-icon svg,
+.add-card-icon svg {
+  width: 18px;
+  height: 18px;
+  stroke: currentColor;
+}
+
+.theme-violet .add-card-button {
+  color: #fff;
+  background: #5255bc;
+}
+
+.theme-violet .add-card-icon,
+.theme-violet .add-column-icon {
+  color: #5255bc;
+  background: #fff;
 }
 
 @media (max-width: 768px) {

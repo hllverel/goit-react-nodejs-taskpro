@@ -1,15 +1,15 @@
 import './LogoComponent.css';
 
 function LogoComponent() {
-  return (
-    <div className="logo">
-      <span className="logo__icon" aria-hidden="true">
-        <svg width="22" height="22">
-          <use href="/symbol-defs.svg#icon-logo" />
-        </svg>
-      </span>
-      <span className="logo__text">Task Pro</span>
-    </div>
+    return (
+      <a className="logo-component" href="/home" aria-label="Task Pro home">
+        <span className="logo-mark" aria-hidden="true">
+          <svg>
+            <use href="/icons.svg#icon-logo-lightning" />
+          </svg>
+        </span>
+        <span>Task Pro</span>
+      </a>
   );
 }
 

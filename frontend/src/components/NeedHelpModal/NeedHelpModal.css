@@ -1,0 +1,83 @@
+.need-help-modal {
+  position: relative;
+  width: min(100%, 430px);
+  padding: 24px;
+  color: #fff;
+  text-align: left;
+  background:
+    radial-gradient(circle at 50% 0, rgba(190, 219, 176, 0.08), transparent 42%),
+    linear-gradient(180deg, #171717 0%, #121212 100%);
+  border: 1px solid rgba(190, 219, 176, 0.42);
+  border-radius: 8px;
+  box-shadow:
+    inset 0 1px 0 rgba(190, 219, 176, 0.08),
+    0 24px 64px rgba(0, 0, 0, 0.45);
+}
+
+.need-help-modal h2 {
+  margin: 0 0 24px;
+  color: #fff;
+  font-size: 18px;
+  font-weight: 500;
+}
+
+.need-help-modal input,
+.need-help-modal textarea {
+  width: 100%;
+  color: #fff;
+  background: #1f1f1f;
+  border: 1px solid rgba(190, 219, 176, 0.42);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
+  outline: none;
+}
+
+.need-help-modal input {
+  height: 49px;
+  padding: 0 18px;
+}
+
+.need-help-modal textarea {
+  height: 120px;
+  margin-top: 14px;
+  padding: 16px 18px;
+  resize: none;
+}
+
+.need-help-modal input:focus,
+.need-help-modal textarea:focus {
+  border-color: #bedbb0;
+}
+
+.need-help-modal .is-invalid {
+  border-color: #e85d5d;
+}
+
+.support-error {
+  margin: 6px 0 0;
+  color: #e85d5d;
+  font-size: 12px;
+}
+
+.need-help-submit {
+  width: 100%;
+  height: 49px;
+  margin-top: 24px;
+  color: #161616;
+  background: #bedbb0;
+  border: 0;
+  border-radius: 8px;
+  font: inherit;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.need-help-submit:hover {
+  filter: brightness(1.04);
+}
+
+.need-help-submit:active {
+  transform: scale(0.99);
+}
