@@ -10,7 +10,8 @@ const emailField = Joi.string().pattern(REGEXP.EMAIL).messages({
 });
 
 const passwordField = Joi.string().pattern(REGEXP.PASSWORD).messages({
-  'string.pattern.base': 'Password must be 8-64 characters long and contain no spaces',
+  'string.pattern.base':
+    'Password must be 8-64 characters, contain no spaces, and include at least one letter',
 });
 
 export const registerSchema = Joi.object({

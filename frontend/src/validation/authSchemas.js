@@ -9,7 +9,10 @@ const email = yup
 const password = yup
   .string()
   .required('Password is required')
-  .matches(PASSWORD_REGEXP, 'Password must be 8-64 characters long, with no spaces');
+  .matches(
+    PASSWORD_REGEXP,
+    'Password must be 8-64 characters, with no spaces, and include at least one letter'
+  );
 
 const name = yup
   .string()
@@ -37,7 +40,7 @@ const optionalPassword = yup
   .transform((value) => (value === '' ? undefined : value))
   .optional()
   .matches(PASSWORD_REGEXP, {
-    message: 'Password must be 8-64 characters long, with no spaces',
+    message: 'Password must be 8-64 characters, with no spaces, and include at least one letter',
     excludeEmptyString: true,
   });
 

@@ -43,6 +43,6 @@ export const ACCESS_TOKEN_LIFETIME = '24h';
 // password = 8-64 chars, no spaces. name = 2-32 chars, spaces allowed.
 export const REGEXP = {
   EMAIL: /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(\.[a-zA-Z0-9-]+)+$/,
-  PASSWORD: /^[!-~]{8,64}$/,
+  PASSWORD: /^(?=.*[A-Za-z])[!-~]{8,64}$/,
   NAME: /^[ -~]{2,32}$/,
 };
