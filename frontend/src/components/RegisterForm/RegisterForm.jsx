@@ -32,7 +32,7 @@ function RegisterForm() {
 
   return (
     <form className={styles.registerForm} onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h2>Registration</h2>
+      <h2 className={styles.visuallyHidden}>Registration</h2>
 
       <div className={styles.field}>
         <input type="text" placeholder="Name" autoComplete="name" {...register('name')} />
@@ -56,7 +56,7 @@ function RegisterForm() {
         <p className={`${styles.error} ${styles.errorServer}`}>{serverError}</p>
       )}
 
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" className={styles.submit} disabled={isSubmitting}>
         Register Now
       </button>
     </form>

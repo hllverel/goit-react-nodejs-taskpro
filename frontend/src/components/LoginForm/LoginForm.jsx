@@ -32,7 +32,7 @@ function LoginForm() {
 
   return (
     <form className={styles.loginForm} onSubmit={handleSubmit(onSubmit)} noValidate>
-      <h2>Login</h2>
+      <h2 className={styles.visuallyHidden}>Login</h2>
 
       <div className={styles.field}>
         <input type="email" placeholder="Email" autoComplete="email" {...register('email')} />
@@ -49,7 +49,7 @@ function LoginForm() {
 
       {serverError && <p className={`${styles.error} ${styles.errorServer}`}>{serverError}</p>}
 
-      <button type="submit" disabled={isSubmitting}>
+      <button type="submit" className={styles.submit} disabled={isSubmitting}>
         Log In Now
       </button>
     </form>
