@@ -10,6 +10,7 @@ export const createTaskController = async (req, res, next) => {
       labelColor,
       deadline,
       columnId: columnId || 'todo',
+      owner: req.user._id,
     });
 
     res.status(201).json({
@@ -29,7 +30,10 @@ export const updateTaskController = async (req, res, next) => {
     const { title, description, labelColor, deadline, columnId } = req.body;
 
     const updatedTask = await Task.findByIdAndUpdate(
-      id,
+      {
+        _id: id,
+        owner: req.user._id,
+      },
       { title, description, labelColor, deadline, columnId },
       { new: true, runValidators: true }, // Güncel veriyi dönsün ve şema kurallarını kontrol etsin
     );
@@ -56,7 +60,10 @@ export const deleteTaskController = async (req, res, next) => {
   try {
     const { id } = req.params;
 
-    const deletedTask = await Task.findByIdAndDelete(id);
+    const deletedTask = await Task.findByIdAndDelete({
+      _id: id,
+      owner: req.user._id,
+    });
 
     if (!deletedTask) {
       return res.status(404).json({
@@ -75,10 +82,12 @@ export const deleteTaskController = async (req, res, next) => {
 };
 export const getTasksController = async (req, res, next) => {
   try {
-    const tasks = await Task.find(); // Veritabanındaki tüm kartları çekiyoruz
+    const tasks = await Task.find({
+      owner: req.user._id,
+    }); // Kullanıcıya ait tüm kartları çekiyoruz
     res.status(200).json({
       status: 200,
-      message: 'Tüm kartlar başarıyla getirildi reis!',
+      message: 'Tüm kartlar başarıyla getirildi!',
       data: tasks,
     });
   } catch (error) {

@@ -1,0 +1,24 @@
+tags:
+  - Tasks
+
+summary: Update a task
+
+operationId: updateTask
+
+parameters:
+  - in: path
+    name: id
+    required: true
+    schema:
+      type: string
+
+requestBody:
+  required: true
+  content:
+    application/json:
+      schema:
+        $ref: '../../../../components/schemas/updateTask.yaml'
+
+responses:
+  '200':
+    description: Task updated successfully

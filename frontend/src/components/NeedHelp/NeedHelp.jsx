@@ -1,7 +1,8 @@
 // place this in the sidebar later
 import { useState, useEffect } from 'react';
 import styles from './NeedHelp.module.css';
-import plantImg from '../../assets/needhelpplant.png';
+import plantImg from '../../assets/needhelpplant.webp';
+import plantImg2x from '../../assets/needhelpplant@2.webp';
 
 export default function NeedHelp() {
     const [isOpen, setIsOpen] = useState(false);
@@ -66,7 +67,7 @@ export default function NeedHelp() {
     return (
         <>
             <div className={styles.needhelpsidebar}>
-                <img className={styles.plant} src={plantImg} alt="plant image" />
+                <img className={styles.plant} srcSet={`${plantImg} 1x, ${plantImg2x} 2x`} src={plantImg} alt="plant image" />
                 <p>If you need help with <span className={styles.taskpro}>TaskPro</span>, check out our support resources or reach out to our customer support team.</p>
                 <div className={styles.needhelptrigger} onClick={() => setIsOpen(true)}>
                     <svg className={styles.helpcircle}>

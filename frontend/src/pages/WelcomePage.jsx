@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import LogoComponent from '../components/LogoComponent/LogoComponent.jsx';
 import heroIllustration from '../assets/hero-illustration.webp';
+import heroIllustrationx2 from '../assets/hero-illustration@2.webp';
 import styles from './WelcomePage.module.css';
 
 function WelcomePage() {
@@ -8,6 +9,7 @@ function WelcomePage() {
     <main className={styles.welcomePage}>
       <img
         className={styles.hero}
+        srcSet={`${heroIllustration} 1x, ${heroIllustrationx2} 2x`}
         src={heroIllustration}
         width={162}
         height={162}
