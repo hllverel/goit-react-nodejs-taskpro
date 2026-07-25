@@ -9,8 +9,8 @@ import BoardModal from "../BoardModal/BoardModal.jsx";
 import NeedHelp from "../NeedHelp/NeedHelp.jsx";
 import { logoutThunk } from "../../store/auth/authSlice.js";
 
-export default function Sidebar() {
-  const [isOpen, setIsOpen] = useState(false);
+export default function Sidebar({ isMenuOpen, onCloseMenu }) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -24,7 +24,10 @@ export default function Sidebar() {
   };
 
   return (
-    <aside className="sidebar">
+    <aside className={`sidebar ${isMenuOpen ? "sidebar--open" : ""}`}>
+      <button className="sidebar-close-btn" onClick={onCloseMenu}>
+        ✕
+      </button>
       <div className="sidebar-top">
         <LogoComponent />
 
@@ -33,7 +36,7 @@ export default function Sidebar() {
 
           <button
             className="create-board-btn"
-            onClick={() => setIsOpen(true)}
+            onClick={() => setIsModalOpen(true)}
           >
             <span className="plus">+</span>
 
@@ -46,15 +49,7 @@ export default function Sidebar() {
 
       <NeedHelp />
 
-        <div className="sidebar-bottom">
-          {/* <div className="help-card">
-            <p className="help-title">Need help?</p>
-
-            <button className="help-btn">
-              Open Help
-            </button>
-          </div> */}
-        
+      <div className="sidebar-bottom">
         <button
           className="logout-btn"
           onClick={handleLogout}
@@ -63,9 +58,9 @@ export default function Sidebar() {
         </button>
       </div>
 
-      {isOpen && (
+      {isModalOpen && (
         <BoardModal
-          onClose={() => setIsOpen(false)}
+          onClose={() => setIsModalOpen(false)}
         />
       )}
     </aside>
