@@ -1,0 +1,22 @@
+.taskpro-layout {
+  display: flex;
+  flex-direction: column; /* mobile/tablet: sidebar is fixed overlay, content is full width */
+  min-height: 100vh;
+}
+
+.taskpro-content {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0; /* prevents flex children from overflowing, per your earlier learning */
+}
+
+@media (min-width: 1440px) {
+  .taskpro-layout {
+    flex-direction: row; /* sidebar + content side by side */
+  }
+
+  .taskpro-content {
+    flex: 1;
+  }
+}

@@ -1,19 +1,32 @@
+import { useState } from "react";
 import Header from "../components/Header/Header.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
 import MainDashboard from "../components/MainDashboard/MainDashboard.jsx";
 import { BoardWorkspaceProvider } from "../components/BoardWorkspace/BoardWorkspaceContext.jsx";
+import "./HomePage.css";
 
 function HomePage() {
-    return (
-      <BoardWorkspaceProvider>
-        <div className="taskpro-layout">
-          <Sidebar />
-          <div className="taskpro-content">
-            <Header />
-            <MainDashboard />
-          </div>
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+
+  return (
+    <BoardWorkspaceProvider>
+      <div className="taskpro-layout">
+        <Sidebar
+          isMenuOpen={isMenuOpen}
+          onCloseMenu={() => setIsMenuOpen(false)}
+        />
+        <div className="taskpro-content">
+          <Header onBurgerClick={() => setIsMenuOpen(true)} />
+          <MainDashboard />
         </div>
-      </BoardWorkspaceProvider>
+      </div>
+      {isMenuOpen && (
+        <div
+          className="sidebar-overlay"
+          onClick={() => setIsMenuOpen(false)}
+        />
+      )}
+    </BoardWorkspaceProvider>
   );
 }
 

@@ -11,7 +11,7 @@ const themes = [
   { id: "dark", label: "Dark" },
 ];
 
-export default function Header() {
+export default function Header({ onBurgerClick }) {
   const [theme, setTheme] = useState("dark");
   const [showProfile, setShowProfile] = useState(false);
   const [isEditProfileOpen, setIsEditProfileOpen] = useState(false);
@@ -33,6 +33,12 @@ export default function Header() {
 
   return (
     <header className="header">
+      <button className="burger-btn" onClick={onBurgerClick} aria-label="Open menu">
+          <span></span>
+          <span></span>
+          <span></span>
+      </button>
+
       <HeaderDashboard />
 
       <div className="header-right">

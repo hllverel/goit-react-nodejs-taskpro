@@ -6,6 +6,18 @@
   flex-direction: column;
   justify-content: space-between;
   color: #fff;
+
+  /* ADD THIS: hidden off-canvas by default (mobile/tablet) */
+  position: fixed;
+  top: 0;
+  left: 0;
+  transform: translateX(-100%);
+  transition: transform 0.3s ease;
+  z-index: 100;
+}
+
+.sidebar--open {
+  transform: translateX(0);
 }
 
 .sidebar-top {
@@ -23,16 +35,16 @@
 }
 
 .boards-title {
-  color: rgba(255,255,255,.5);
+  color: rgba(255, 255, 255, 0.5);
   font-size: 12px;
-  letter-spacing: .04em;
+  letter-spacing: 0.04em;
   margin-bottom: 14px;
 }
 
 .create-board-btn {
   width: 100%;
   height: 70px;
-  border: 1px solid rgba(255,255,255,.1);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   background: transparent;
   display: flex;
   align-items: center;
@@ -41,17 +53,17 @@
   padding: 0 18px;
   border-radius: 8px;
   cursor: pointer;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .create-board-btn:hover {
-  border-color: #BEDBB0;
+  border-color: #bedbb0;
 }
 
 .plus {
   width: 28px;
   height: 28px;
-  background: #BEDBB0;
+  background: #bedbb0;
   color: black;
   border-radius: 6px;
   display: flex;
@@ -66,7 +78,7 @@
 }
 
 .help-card {
-  background: #1F1F1F;
+  background: #1f1f1f;
   border-radius: 12px;
   padding: 18px;
 }
@@ -80,7 +92,7 @@
   width: 100%;
   height: 42px;
   border: none;
-  background: #BEDBB0;
+  background: #bedbb0;
   color: #161616;
   font-weight: 600;
   border-radius: 8px;
@@ -96,15 +108,47 @@
   color: white;
   cursor: pointer;
   font-size: 16px;
-  transition: .3s;
+  transition: 0.3s;
 }
 
 .logout-btn:hover {
-  color: #BEDBB0;
+  color: #bedbb0;
 }
 
-@media (max-width:768px) {
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: 90;
+}
+
+.sidebar-close-btn {
+  align-self: flex-end;
+  background: transparent;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  cursor: pointer;
+  margin: 12px 24px 0 0;
+}
+
+@media (max-width: 768px) {
   .sidebar {
     width: 225px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .sidebar {
+    position: static;
+    transform: translateX(0);
+  }
+
+  .sidebar-overlay {
+    display: none;
+  }
+
+  .sidebar-close-btn {
+    display: none;
   }
 }
