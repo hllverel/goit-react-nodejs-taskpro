@@ -15,7 +15,7 @@ export const createTaskController = async (req, res, next) => {
 
     res.status(201).json({
       status: 201,
-      message: 'Kart başarıyla oluşturuldu!',
+      message: 'Task created successfully!',
       data: newTask,
     });
   } catch (error) {
@@ -41,13 +41,13 @@ export const updateTaskController = async (req, res, next) => {
     if (!updatedTask) {
       return res.status(404).json({
         status: 404,
-        message: 'Güncellenmek istenen kart bulunamadı!',
+        message: 'Task can not be found!',
       });
     }
 
     res.status(200).json({
       status: 200,
-      message: 'Kart başarıyla güncellendi!',
+      message: 'Task updated successfully!',
       data: updatedTask,
     });
   } catch (error) {
@@ -68,13 +68,13 @@ export const deleteTaskController = async (req, res, next) => {
     if (!deletedTask) {
       return res.status(404).json({
         status: 404,
-        message: 'Silinmek istenen kart mevcut değil!',
+        message: 'Task does not exist!',
       });
     }
 
     res.status(200).json({
       status: 200,
-      message: 'Kart başarıyla silindi!',
+      message: 'Task deleted successfully!',
     });
   } catch (error) {
     next(error);
@@ -87,7 +87,7 @@ export const getTasksController = async (req, res, next) => {
     }); // Kullanıcıya ait tüm kartları çekiyoruz
     res.status(200).json({
       status: 200,
-      message: 'Tüm kartlar başarıyla getirildi!',
+      message: 'All tasks retrieved successfully',
       data: tasks,
     });
   } catch (error) {
