@@ -2,13 +2,12 @@ tags:
   - Tasks
 summary: Create a task
 operationId: createTask
-description: Creates a new task for the authenticated user.
 requestBody:
   required: true
   content:
     application/json:
       schema:
-        $ref: ../../components/schemas/createTask.yaml
+        $ref: '../../swagger/components/schemas/createTask.yaml'
 responses:
   '201':
     description: Task created successfully
@@ -16,22 +15,14 @@ responses:
       application/json:
         schema:
           type: object
-          required:
-            - status
-            - message
-            - data
           properties:
             status:
               type: integer
               example: 201
             message:
               type: string
-              example: Task created successfully
+              example: Kart başarıyla oluşturuldu!
             data:
-              $ref: ../../components/schemas/task.yaml
-  '400':
-    $ref: ../../components/responses/400.yaml
+              $ref: '../../../swagger/components/schemas/task.yaml'
   '401':
-    $ref: ../../components/responses/401.yaml
-  '500':
-    $ref: ../../components/responses/500.yaml
+    $ref: '../../../swagger/components/responses/401.yaml'

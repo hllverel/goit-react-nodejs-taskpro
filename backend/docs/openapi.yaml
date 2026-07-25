@@ -4,29 +4,31 @@ info:
   title: Task Pro API
   license:
     name: Apache 2.0
-    url: http://www.apache.org/licenses/LICENSE-2.0.html
+    url: <http://www.apache.org/licenses/LICENSE-2.0.html>
   description: >
     REST API for Task Pro
 tags:
+  # - name: Boards
+  #   description: Operations about boards.
   - name: Tasks
     description: Operations about tasks.
   - name: Auth
     description: Auth operations.
 servers:
-  - url: http://localhost:3000
+  - url: http://localhost:3000/api
 security:
   - bearerAuth: []
 paths:
-  /api/auth/register:
+  /auth/register:
     post:
       $ref: '../swagger/paths/auth/register/post.yaml'
-  /api/auth/login:
+  /auth/login:
     post:
       $ref: '../swagger/paths/auth/login/post.yaml'
-  /api/auth/logout:
+  /auth/logout:
     post:
       $ref: '../swagger/paths/auth/logout/post.yaml'
-  /api/auth/current:
+  /auth/current:
     get:
       $ref: '../swagger/paths/auth/current/get.yaml'
     patch:
@@ -47,6 +49,3 @@ components:
       type: http
       scheme: bearer
       bearerFormat: JWT
-  schemas:
-    AuthResponse:
-      $ref: ../swagger/components/schemas/authResponse.yaml
