@@ -1,4 +1,4 @@
-description: Contact not found
+description: Not Found
 content:
   application/json:
     schema:
@@ -6,14 +6,12 @@ content:
       required:
         - status
         - message
-        - data
       properties:
         status:
           type: integer
           example: 404
         message:
           type: string
-          example: Contact not found
+          example: Route not found
         data:
           type: object
-          example: {}

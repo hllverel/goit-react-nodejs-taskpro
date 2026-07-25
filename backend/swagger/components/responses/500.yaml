@@ -1,17 +1,15 @@
-description: Unauthorized
+description: Internal Server Error
 content:
   application/json:
     schema:
       type: object
-      required:
-        - status
-        - message
       properties:
         status:
           type: integer
-          example: 401
+          example: 500
         message:
           type: string
-          example: Authorization header missing
+          example: Something went wrong
         data:
-          type: object
+          type: string
+          example: Database connection failed

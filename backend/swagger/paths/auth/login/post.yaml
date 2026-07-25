@@ -22,29 +22,11 @@ requestBody:
             example: 'password123'
 responses:
   '200':
-    description: Successfully logged in
+    description: User logged in successfully
     content:
       application/json:
         schema:
-          type: object
-          required:
-            - status
-            - message
-            - data
-          properties:
-            status:
-              type: integer
-              example: 200
-            message:
-              type: string
-              example: Successfully logged in as a user!
-            data:
-              type: object
-              properties:
-                accessToken:
-                  type: string
-                  example: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...'
+          $ref: ../../../components/schemas/authResponse.yaml
+
   '401':
-    $ref: '../../../components/responses/401.yaml'
-  '404':
-    $ref: '../../../components/responses/404.yaml'
+    $ref: ../../../components/responses/401.yaml
