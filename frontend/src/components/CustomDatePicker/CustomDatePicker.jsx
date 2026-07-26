@@ -8,7 +8,8 @@ const CustomDatePicker = ({
   placeholder = 'Select a date',
 }) => {
   // Eğer selectedDate varsa onu kullan, yoksa takvimi bugünün tarihinden başlat reis
-  const validDate = selectedDate ? new Date(selectedDate) : new Date();
+  const parsedDate = selectedDate instanceof Date ? selectedDate : new Date(selectedDate);
+  const validDate = selectedDate && !Number.isNaN(parsedDate.getTime()) ? parsedDate : new Date();
 
   return (
     <div className="custom-datepicker-wrapper">

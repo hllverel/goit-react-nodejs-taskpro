@@ -1,6 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import BoardIcon from '../BoardIcon/BoardIcon.jsx';
-import { boardBackgroundOptions, boardIconOptions } from '../BoardWorkspace/boardWorkspaceData.js';
+import {
+  boardBackgroundOptions,
+  boardIconOptions,
+  customBackgroundEffects,
+  getCustomColorBackground,
+} from '../BoardWorkspace/boardWorkspaceData.js';
 import './BoardModal.css';
 
 function BoardModal({ mode, board, onClose, onCreate, onUpdate }) {
@@ -9,15 +14,49 @@ function BoardModal({ mode, board, onClose, onCreate, onUpdate }) {
   const [backgroundId, setBackgroundId] = useState(
     board?.backgroundId || boardBackgroundOptions[0].id,
   );
+  const [customBackgroundColor, setCustomBackgroundColor] = useState(
+    board?.customBackgroundColor || '#bedbb0',
+  );
+  const [customBackgroundEffect, setCustomBackgroundEffect] = useState(
+    board?.customBackgroundEffect || customBackgroundEffects[0].id,
+  );
+  const [customBackgroundImage, setCustomBackgroundImage] = useState(
+    board?.customBackgroundImage || '',
+  );
+  const colorInputRef = useRef(null);
 
   const isEditMode = mode === 'edit';
   const trimmedTitle = title.trim();
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
+  const handleImageChange = (event) => {
+    const file = event.target.files?.[0];
+    if (!file) return;
+
+    setCustomBackgroundImage(URL.createObjectURL(file));
+    setBackgroundId('custom-image');
+  };
 
   const handleSubmit = (event) => {
     event.preventDefault();
     if (!trimmedTitle) return;
 
-    const payload = { title: trimmedTitle, iconId, backgroundId };
+    const payload = {
+      title: trimmedTitle,
+      iconId,
+      backgroundId,
+      customBackgroundColor,
+      customBackgroundEffect,
+      customBackgroundImage,
+    };
 
     if (isEditMode && board) {
       onUpdate({ ...payload, id: board.id });
@@ -36,7 +75,9 @@ function BoardModal({ mode, board, onClose, onCreate, onUpdate }) {
         onMouseDown={(event) => event.stopPropagation()}
       >
         <button className="modal-close-button" type="button" aria-label="Close modal" onClick={onClose}>
-          <span aria-hidden="true">x</span>
+          <svg width="18" height="18" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-close" />
+          </svg>
         </button>
 
         <h2 className="board-modal-title">{isEditMode ? 'Edit board' : 'New board'}</h2>
@@ -86,11 +127,70 @@ function BoardModal({ mode, board, onClose, onCreate, onUpdate }) {
                 style={{ background: option.preview }}
               />
             ))}
+            <label
+              className={`board-background-option board-background-upload ${
+                backgroundId === 'custom-image' ? 'is-selected' : ''
+              }`}
+              aria-label="Upload custom background image"
+              style={
+                customBackgroundImage
+                  ? { backgroundImage: `url("${customBackgroundImage}")` }
+                  : undefined
+              }
+            >
+              <svg width="18" height="18" aria-hidden="true">
+                <use href="/symbol-defs.svg#icon-plus" />
+              </svg>
+              <input type="file" accept="image/*" onChange={handleImageChange} hidden />
+            </label>
+            <button
+              className={`board-background-option board-background-color ${
+                backgroundId === 'custom-color' ? 'is-selected' : ''
+              }`}
+              type="button"
+              aria-label="Choose custom background color"
+              onClick={() => {
+                setBackgroundId('custom-color');
+                colorInputRef.current?.click();
+              }}
+              style={{ background: getCustomColorBackground(customBackgroundColor, customBackgroundEffect) }}
+            >
+              <input
+                ref={colorInputRef}
+                type="color"
+                value={customBackgroundColor}
+                onChange={(event) => {
+                  setCustomBackgroundColor(event.target.value);
+                  setBackgroundId('custom-color');
+                }}
+              />
+            </button>
           </div>
+
+          {backgroundId === 'custom-color' && (
+            <div className="background-effect-picker" aria-label="Background effects">
+              {customBackgroundEffects.map((effect) => (
+                <button
+                  key={effect.id}
+                  className={`background-effect-option ${
+                    customBackgroundEffect === effect.id ? 'is-selected' : ''
+                  }`}
+                  type="button"
+                  onClick={() => setCustomBackgroundEffect(effect.id)}
+                >
+                  {effect.label}
+                </button>
+              ))}
+            </div>
+          )}
         </fieldset>
 
         <button className="board-modal-submit" type="submit" disabled={!trimmedTitle}>
-          <span className="submit-icon" aria-hidden="true">+</span>
+          <span className="submit-icon" aria-hidden="true">
+            <svg width="16" height="16">
+              <use href="/symbol-defs.svg#icon-plus" />
+            </svg>
+          </span>
           {isEditMode ? 'Edit' : 'Create'}
         </button>
       </form>

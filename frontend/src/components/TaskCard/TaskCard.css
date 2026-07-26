@@ -1,6 +1,6 @@
 /* Ana Görev Kartı Kutusu (Masaüstü ve Tablet: 334x154) */
 .task-card {
-  background-color: #121212;
+  background-color: var(--panel-bg);
   border-radius: 8px;
   width: 334px;
   height: 154px;
@@ -11,6 +11,27 @@
   box-sizing: border-box;
   font-family: 'Poppins', sans-serif;
   text-align: left;
+  cursor: default;
+  transition:
+    opacity 180ms ease,
+    transform 180ms ease,
+    box-shadow 180ms ease;
+}
+
+.task-card.is-dragging {
+  cursor: grabbing;
+}
+
+.card-selectable {
+  cursor: text;
+  user-select: text;
+  -webkit-user-select: text;
+}
+
+.task-card.is-dragging {
+  opacity: 0.55;
+  transform: rotate(1deg) scale(0.99);
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.28);
 }
 
 /* Sol Taraftaki İnce Dikey Renk Çizgisi */
@@ -37,11 +58,12 @@
 }
 .card-label-line.gray,
 .priority-circle.gray {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: color-mix(in srgb, var(--text-primary) 30%, transparent);
 }
 
 /* İçerik Alanı Yapısı */
 .card-content {
+  min-width: 0;
   flex: 1;
   padding: 14px 20px 14px 24px;
   display: flex;
@@ -56,10 +78,10 @@
   text-align: left;
 }
 
-.card-header h3 {
+.card-header h4 {
   font-size: 14px;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-primary);
   margin: 0;
   white-space: nowrap;
   overflow: hidden;
@@ -71,18 +93,24 @@
 
 /* Orta Kısım: Açıklama Metni */
 .card-description {
+  min-width: 0;
+  height: 52px;
   font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--text-secondary);
   line-height: 18px;
   margin: 6px 0 0 0;
   text-align: left;
-  max-height: 52px;
   overflow-y: auto;
-  padding-right: 4px;
+  overflow-x: hidden;
+  padding-right: 6px;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  scrollbar-color: transparent transparent;
+  scrollbar-width: thin;
 }
 
 .card-description::-webkit-scrollbar {
-  width: 2px;
+  width: 4px;
 }
 
 .card-description::-webkit-scrollbar-track {
@@ -90,8 +118,16 @@
 }
 
 .card-description::-webkit-scrollbar-thumb {
-  background-color: rgba(255, 255, 255, 0.2);
+  background-color: transparent;
   border-radius: 10px;
+}
+
+.task-card:hover .card-description {
+  scrollbar-color: color-mix(in srgb, var(--text-primary) 28%, transparent) transparent;
+}
+
+.task-card:hover .card-description::-webkit-scrollbar-thumb {
+  background-color: color-mix(in srgb, var(--text-primary) 28%, transparent);
 }
 
 /* Alt Kısım (Çizgi ve Detaylar) */
@@ -104,7 +140,7 @@
 /* İnce Yatay Ayırıcı Çizgi */
 .divider-line {
   height: 1px;
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--border-soft);
   width: 100%;
   margin-bottom: 8px;
 }
@@ -131,9 +167,7 @@
 
 .meta-label {
   font-size: 8px;
-  color: rgba(255, 255, 255, 0.3);
-  text-transform: uppercase;
-  letter-spacing: 0.5px;
+  color: var(--text-muted);
   text-align: left;
 }
 
@@ -156,7 +190,7 @@
 .priority-text,
 .meta-value {
   font-size: 10px;
-  color: #fff;
+  color: var(--text-primary);
   white-space: nowrap;
 }
 
@@ -171,7 +205,7 @@
   background: none;
   border: none;
   cursor: pointer;
-  color: rgba(255, 255, 255, 0.5);
+  color: color-mix(in srgb, var(--text-primary) 58%, transparent);
   padding: 0;
   display: flex;
   justify-content: center;
@@ -182,8 +216,74 @@
 }
 
 .action-btn:hover {
-  color: #fff;
+  color: var(--text-primary);
   transform: translateY(-1px);
+}
+
+.action-btn svg,
+.bell-icon-wrapper svg,
+.move-popup-item svg {
+  stroke: currentColor;
+  fill: none;
+}
+
+.action-btn use,
+.bell-icon-wrapper use,
+.move-popup-item use {
+  stroke: currentColor;
+  fill: none;
+}
+
+.move-action-wrapper {
+  position: relative;
+  display: flex;
+}
+
+.move-popup {
+  position: absolute;
+  right: 0;
+  bottom: calc(100% + 10px);
+  z-index: 40;
+  min-width: 172px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 18px 22px;
+  border-radius: 8px;
+  background: var(--panel-bg);
+  box-shadow: 0 4px 16px rgba(17, 17, 17, 0.12);
+}
+
+.move-popup-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1.28;
+  text-align: left;
+}
+
+.move-popup-item:hover,
+.move-popup-item:focus-visible {
+  color: var(--accent);
+  outline: none;
+}
+
+.move-popup-item svg {
+  flex: 0 0 18px;
+  stroke: currentColor;
+}
+
+.task-card-list .task-card {
+  width: 100%;
+  flex: 0 0 auto;
 }
 
 /* ==========================================================================

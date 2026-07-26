@@ -2,17 +2,17 @@
   position: relative;
   width: min(100%, 360px);
   padding: 28px;
-  color: #fff;
+  color: var(--text-primary);
   text-align: left;
-  background: #151515;
-  border: 1px solid #253021;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
 .column-modal-title {
   margin: 0 0 24px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 20px;
   font-weight: 600;
 }
@@ -21,9 +21,9 @@
   width: 100%;
   height: 48px;
   padding: 0 18px;
-  color: #fff;
-  background: #1f1f1f;
-  border: 1px solid rgba(190, 219, 176, 0.75);
+  color: var(--text-primary);
+  background: var(--app-bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 75%, transparent);
   border-radius: 8px;
   box-sizing: border-box;
   font: inherit;
@@ -31,7 +31,7 @@
 }
 
 .column-modal-input:focus {
-  border-color: #bedbb0;
+  border-color: var(--accent);
 }
 
 .column-modal-submit {
@@ -42,8 +42,8 @@
   justify-content: center;
   gap: 12px;
   margin-top: 24px;
-  color: #161616;
-  background: #bedbb0;
+  color: var(--accent-text);
+  background: var(--accent);
   border: 0;
   border-radius: 8px;
   font: inherit;
@@ -51,7 +51,28 @@
   cursor: pointer;
 }
 
+.modal-close-button svg,
+.submit-icon svg {
+  stroke: currentColor;
+}
+
+.modal-close-button {
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus-visible {
+  color: #e74c3c;
+  outline: none;
+  transform: scale(1.06);
+}
+
 .column-modal-submit:disabled {
   cursor: not-allowed;
   opacity: 0.55;
+}
+
+body[data-theme='violet'] .submit-icon {
+  background: #fff;
+  color: var(--accent);
 }
