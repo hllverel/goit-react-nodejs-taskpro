@@ -35,6 +35,15 @@ TaskPro is a task management application that helps users organize projects usin
 - Backend: Render
 - Database: MongoDB Atlas
 
-## API Documentation
+## Install dependencies:
 
-Swagger documentation is available through the backend deployment:
+### Frontend:
+cd frontend
+npm install
+npm run dev
+
+### Backend:
+
+cd backend
+npm install
+npm run dev
