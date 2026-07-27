@@ -27,6 +27,10 @@
     {
       "name": "Auth",
       "description": "Auth operations."
+    },
+    {
+      "name": "Workspace",
+      "description": "Workspace operations."
     }
   ],
   "paths": {
@@ -250,7 +254,7 @@
         }
       }
     },
-    "/tasks": {
+    "/api/tasks": {
       "get": {
         "tags": [
           "Tasks"
@@ -356,7 +360,7 @@
         }
       }
     },
-    "/tasks/{id}": {
+    "/api/tasks/{id}": {
       "patch": {
         "tags": [
           "Tasks"
@@ -481,6 +485,115 @@
           },
           "500": {
             "$ref": "#/components/responses/500"
+          }
+        }
+      }
+    },
+    "/api/workspace": {
+      "get": {
+        "summary": "Get user workspace",
+        "description": "Retrieves the authenticated user's workspace.",
+        "operationId": "getWorkspace",
+        "tags": [
+          "Workspace"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Workspace retrieved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Workspace retrieved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/workspace"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
+          }
+        }
+      },
+      "put": {
+        "summary": "Save user workspace",
+        "description": "Saves boards, columns, and active board for the authenticated user.",
+        "operationId": "saveWorkspace",
+        "tags": [
+          "Workspace"
+        ],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "boards": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/board"
+                    }
+                  },
+                  "activeBoardId": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "example": "board-123"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Workspace saved successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "status": {
+                      "type": "integer",
+                      "example": 200
+                    },
+                    "message": {
+                      "type": "string",
+                      "example": "Workspace saved successfully"
+                    },
+                    "data": {
+                      "$ref": "#/components/schemas/workspace"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/responses/401"
           }
         }
       }
@@ -688,6 +801,80 @@
           "columnId": {
             "type": "string",
             "example": "in-progress"
+          }
+        }
+      },
+      "column": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "column-123"
+          },
+          "title": {
+            "type": "string",
+            "example": "Todo"
+          }
+        }
+      },
+      "board": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "example": "board-123"
+          },
+          "title": {
+            "type": "string",
+            "example": "Website Project"
+          },
+          "iconId": {
+            "type": "string",
+            "example": "grid"
+          },
+          "backgroundId": {
+            "type": "string",
+            "example": "none"
+          },
+          "columns": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/column"
+            }
+          }
+        }
+      },
+      "workspace": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string",
+            "example": "6a67526ff14cb5e47aa33850"
+          },
+          "owner": {
+            "type": "string",
+            "example": "6a6111520dc5a4cb7deec6e4"
+          },
+          "boards": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/board"
+            }
+          },
+          "activeBoardId": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "example": "board-123"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "updatedAt": {
+            "type": "string",
+            "format": "date-time"
           }
         }
       }

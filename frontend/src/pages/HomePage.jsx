@@ -1,7 +1,8 @@
 import { useState } from "react";
 import Header from "../components/Header/Header.jsx";
 import Sidebar from "../components/Sidebar/Sidebar.jsx";
-import MainDashboard from "../components/MainDashboard/MainDashboard.jsx";
+// import MainDashboard from "../components/MainDashboard/MainDashboard.jsx";
+import ScreensPage from "./ScreensPage.jsx";
 import { BoardWorkspaceProvider } from "../components/BoardWorkspace/BoardWorkspaceContext.jsx";
 import "./HomePage.css";
 
@@ -15,11 +16,14 @@ function HomePage() {
           isMenuOpen={isMenuOpen}
           onCloseMenu={() => setIsMenuOpen(false)}
         />
+
         <div className="taskpro-content">
           <Header onBurgerClick={() => setIsMenuOpen(true)} />
-          <MainDashboard />
+
+          <ScreensPage />
         </div>
       </div>
+
       {isMenuOpen && (
         <div
           className="sidebar-overlay"
