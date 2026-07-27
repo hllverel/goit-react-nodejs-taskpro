@@ -13,9 +13,8 @@ router.get('/', (req, res) => {
 });
 
 router.use('/api/auth', authRouter);
-router.use('/api/workspace', workspaceRouter);
 router.use('/api/tasks', taskRouter);
+router.use('/api/workspace', workspaceRouter);
 router.use('/help', helpRouter);
-router.use('/tasks', taskRouter);
 
 export default router;
