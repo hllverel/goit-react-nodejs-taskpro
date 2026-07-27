@@ -1,4 +1,4 @@
-import { sendEmail } from '../utils/sendmail.js';
+import { sendEmail } from '../utils/sendMail.js';
 import { SUPPORT_EMAIL } from '../constants/index.js';
 import { env } from '../utils/env.js';
 import { SMTP } from '../constants/index.js';
