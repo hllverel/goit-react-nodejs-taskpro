@@ -1,5 +1,64 @@
 import { Schema, model } from 'mongoose';
 
+const columnSchema = new Schema(
+  {
+    id: {
+      type: String,
+      required: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 64,
+    },
+
+    cards: {
+      type: [Schema.Types.Mixed],
+      default: [],
+    },
+  },
+  { _id: false }
+);
+
+const boardSchema = new Schema(
+  {
+    id: {
+      type: String,
+      required: true,
+    },
+
+    title: {
+      type: String,
+      required: true,
+      trim: true,
+      maxlength: 64,
+    },
+
+    iconId: {
+      type: String,
+      default: 'grid',
+    },
+
+    backgroundId: {
+      type: String,
+      default: 'none',
+    },
+
+    backgroundPreview: {
+      type: String,
+      default: '',
+    },
+
+    columns: {
+      type: [columnSchema],
+      default: [],
+    },
+  },
+  { _id: false }
+);
+
 const workspaceSchema = new Schema(
   {
     owner: {
@@ -10,7 +69,7 @@ const workspaceSchema = new Schema(
       index: true,
     },
     boards: {
-      type: [Schema.Types.Mixed],
+      type: [boardSchema],
       default: [],
     },
     activeBoardId: {
@@ -20,5 +79,6 @@ const workspaceSchema = new Schema(
   },
   { timestamps: true, versionKey: false },
 );
+
 
 export const Workspace = model('Workspace', workspaceSchema);

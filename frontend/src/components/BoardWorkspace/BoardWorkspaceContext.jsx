@@ -11,9 +11,25 @@ const createId = (prefix) => `${prefix}-${Date.now()}-${Math.random().toString(1
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:3000/api';
 
 const normalizeWorkspace = (workspace) => {
-  const boards = Array.isArray(workspace?.boards) ? workspace.boards : [];
+  const boards = Array.isArray(workspace?.boards)
+    ? workspace.boards.map((board) => ({
+        ...board,
+        columns: Array.isArray(board.columns)
+          ? board.columns.map((column) => ({
+              ...column,
+              cards: Array.isArray(column.cards)
+                ? column.cards
+                : [],
+            }))
+          : [],
+      }))
+    : [];
+
   const savedActiveBoardId = workspace?.activeBoardId || null;
-  const activeBoardId = boards.some((board) => board.id === savedActiveBoardId)
+
+  const activeBoardId = boards.some(
+    (board) => board.id === savedActiveBoardId,
+  )
     ? savedActiveBoardId
     : boards[0]?.id || null;
 
@@ -239,6 +255,7 @@ export function BoardWorkspaceProvider({ children }) {
 
   const createTask = async ({ columnId, title, description, labelColor, deadline }) => {
     if (!activeBoardId || !columnId) return;
+    console.log('TASK CREATE TOKEN:', token);
 
     const response = await fetch(`${API_URL}/tasks`, {
       method: 'POST',
@@ -246,7 +263,7 @@ export function BoardWorkspaceProvider({ children }) {
         Authorization: `Bearer ${token}`,
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ title, description, labelColor, deadline, columnId }),
+      body: JSON.stringify({ title, description, labelColor, deadline, boardId: activeBoardId, columnId }),
     });
 
     if (!response.ok) {
@@ -256,7 +273,9 @@ export function BoardWorkspaceProvider({ children }) {
     const result = await response.json();
     const savedTask = result.data || {};
     const task = {
-      id: savedTask._id || savedTask.id || createId('task'),
+      id: savedTask._id || savedTask.id,
+      boardId: activeBoardId,
+      columnId,
       title: savedTask.title || title,
       description: savedTask.description || description,
       labelColor: savedTask.labelColor || labelColor,
@@ -280,9 +299,19 @@ export function BoardWorkspaceProvider({ children }) {
     closeTaskModal();
   };
 
-  const updateTask = ({ columnId, id, title, description, labelColor, deadline }) => {
+  const updateTask = async ({
+    id,
+    columnId,
+    title,
+    description,
+    labelColor,
+    deadline,
+  }) => {
     if (!activeBoardId || !columnId) return;
 
+    const previousBoards = structuredClone(boards);
+
+    // Optimistically update the UI
     setBoards((currentBoards) =>
       currentBoards.map((board) =>
         board.id === activeBoardId
@@ -293,7 +322,15 @@ export function BoardWorkspaceProvider({ children }) {
                   ? {
                       ...column,
                       cards: column.cards.map((card) =>
-                        card.id === id ? { ...card, title, description, labelColor, deadline } : card,
+                        card.id === id
+                          ? {
+                              ...card,
+                              title,
+                              description,
+                              labelColor,
+                              deadline,
+                            }
+                          : card,
                       ),
                     }
                   : column,
@@ -302,10 +339,40 @@ export function BoardWorkspaceProvider({ children }) {
           : board,
       ),
     );
+
     closeTaskModal();
+
+    try {
+      const response = await fetch(`${API_URL}/tasks/${id}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          title,
+          description,
+          labelColor,
+          deadline,
+          columnId,
+          boardId: activeBoardId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Task could not be updated');
+      }
+    } catch (error) {
+      console.error(error);
+      setBoards(previousBoards);
+    }
   };
 
-  const deleteTask = (columnId, taskId) => {
+  const deleteTask = async (columnId, taskId) => {
+    if (!activeBoardId) return;
+
+    const previousBoards = structuredClone(boards);
+
     setBoards((currentBoards) =>
       currentBoards.map((board) =>
         board.id === activeBoardId
@@ -313,35 +380,76 @@ export function BoardWorkspaceProvider({ children }) {
               ...board,
               columns: board.columns.map((column) =>
                 column.id === columnId
-                  ? { ...column, cards: column.cards.filter((card) => card.id !== taskId) }
+                  ? {
+                      ...column,
+                      cards: column.cards.filter((card) => card.id !== taskId),
+                    }
                   : column,
               ),
             }
           : board,
       ),
     );
+
+    try {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        method: 'DELETE',
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error('Task could not be deleted');
+      }
+    } catch (error) {
+      console.error(error);
+      setBoards(previousBoards);
+    }
   };
 
-  const moveTask = (sourceColumnId, targetColumnId, taskId) => {
+  const moveTask = async (sourceColumnId, targetColumnId, taskId) => {
     if (!activeBoardId || sourceColumnId === targetColumnId) return;
+
+    const previousBoards = structuredClone(boards);
 
     setBoards((currentBoards) =>
       currentBoards.map((board) => {
         if (board.id !== activeBoardId) return board;
 
-        const sourceColumn = board.columns.find((column) => column.id === sourceColumnId);
-        const movingTask = sourceColumn?.cards.find((card) => card.id === taskId);
+        const sourceColumn = board.columns.find(
+          (column) => column.id === sourceColumnId,
+        );
+
+        const movingTask = sourceColumn?.cards.find(
+          (card) => card.id === taskId,
+        );
+
         if (!movingTask) return board;
 
         return {
           ...board,
           columns: board.columns.map((column) => {
             if (column.id === sourceColumnId) {
-              return { ...column, cards: column.cards.filter((card) => card.id !== taskId) };
+              return {
+                ...column,
+                cards: column.cards.filter(
+                  (card) => card.id !== taskId,
+                ),
+              };
             }
 
             if (column.id === targetColumnId) {
-              return { ...column, cards: [...column.cards, movingTask] };
+              return {
+                ...column,
+                cards: [
+                  ...column.cards,
+                  {
+                    ...movingTask,
+                    columnId: targetColumnId,
+                  },
+                ],
+              };
             }
 
             return column;
@@ -349,6 +457,27 @@ export function BoardWorkspaceProvider({ children }) {
         };
       }),
     );
+
+    try {
+      const response = await fetch(`${API_URL}/tasks/${taskId}`, {
+        method: 'PATCH',
+        headers: {
+          Authorization: `Bearer ${token}`,
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          boardId: activeBoardId,
+          columnId: targetColumnId,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error('Task could not be moved');
+      }
+    } catch (error) {
+      console.error(error);
+      setBoards(previousBoards);
+    }
   };
 
   const value = {

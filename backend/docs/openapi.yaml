@@ -37,7 +37,7 @@ paths:
     post:
       $ref: ../swagger/paths/tasks/post.yaml
   /tasks/{id}:
-    put:
+    patch:
       $ref: ../swagger/paths/tasks/{id}/put.yaml
     delete:
       $ref: ../swagger/paths/tasks/{id}/delete.yaml

@@ -357,7 +357,7 @@
       }
     },
     "/tasks/{id}": {
-      "put": {
+      "patch": {
         "tags": [
           "Tasks"
         ],

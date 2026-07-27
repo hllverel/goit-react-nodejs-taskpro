@@ -15,18 +15,21 @@ const taskSchema = new Schema(
     },
     labelColor: {
       type: String,
-      enum: ['blue', 'pink', 'green', 'gray'], // Figma'daki etiket renklerimiz
+      enum: ['blue', 'pink', 'green', 'gray'],
       default: 'gray',
     },
     deadline: {
       type: Date,
       required: [true, 'Teslim tarihi zorunludur'],
     },
-    // Kartın hangi sütunda durduğunu bilelim ki arkadaşın taşırken sorun yaşamasın
     columnId: {
       type: String,
       required: true,
       default: 'todo',
+    },
+    boardId: {
+      type: String,
+      required: true,
     },
     owner: {
       type: Schema.Types.ObjectId,
@@ -35,10 +38,9 @@ const taskSchema = new Schema(
     },
   },
   {
-    timestamps: true, // Kartın oluşturulma (createdAt) ve güncellenme (updatedAt) tarihlerini otomatik tutar
-    versionKey: false, // Veritabanındaki gereksiz __v alanını kaldırır, daha temiz durur
+    timestamps: true,
+    versionKey: false,
   },
 );
 
-// Koleksiyon adını 'tasks' olarak ayarlayıp dışarı aktarıyoruz
 export const Task = model('Task', taskSchema);
