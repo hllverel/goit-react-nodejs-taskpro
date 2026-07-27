@@ -1,7 +1,7 @@
 .edit-profile-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 10000;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -12,10 +12,10 @@
   position: relative;
   width: min(100%, 420px);
   padding: 40px;
-  color: #fff;
+  color: var(--text-primary);
   text-align: left;
-  background: #151515;
-  border: 1px solid #bedbb0;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
@@ -28,17 +28,27 @@
   height: 28px;
   display: grid;
   place-items: center;
-  color: #fff;
+  color: var(--text-primary);
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-size: 28px;
-  line-height: 1;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.edit-profile-modal .modal-close-button svg {
+  stroke: currentColor;
+}
+
+.edit-profile-modal .modal-close-button:hover,
+.edit-profile-modal .modal-close-button:focus-visible {
+  color: #e74c3c;
+  outline: none;
+  transform: scale(1.06);
 }
 
 .edit-profile-title {
   margin: 0 0 24px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 28px;
   font-weight: 600;
 }
@@ -68,8 +78,8 @@
   height: 28px;
   display: grid;
   place-items: center;
-  color: #161616;
-  background: #bedbb0;
+  color: var(--accent-text);
+  background: var(--accent);
   border-radius: 50%;
   font-size: 18px;
   line-height: 1;
@@ -83,9 +93,9 @@
   width: 100%;
   height: 52px;
   padding: 0 18px;
-  color: #fff;
-  background: #1f1f1f;
-  border: 1px solid rgba(190, 219, 176, 0.55);
+  color: var(--text-primary);
+  background: var(--app-bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   border-radius: 8px;
   box-sizing: border-box;
   font: inherit;
@@ -93,22 +103,22 @@
 }
 
 .edit-profile-input:focus {
-  border-color: #bedbb0;
+  border-color: var(--accent);
 }
 
 .edit-profile-password-input {
   height: 52px;
   padding-left: 18px;
-  color: #fff;
-  background: #1f1f1f;
-  border: 1px solid rgba(190, 219, 176, 0.55);
+  color: var(--text-primary);
+  background: var(--app-bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   border-radius: 8px;
   font: inherit;
   outline: none;
 }
 
 .edit-profile-password-input:focus {
-  border-color: #bedbb0;
+  border-color: var(--accent);
 }
 
 .edit-profile-error {
@@ -129,8 +139,8 @@
   align-items: center;
   justify-content: center;
   margin-top: 24px;
-  color: #161616;
-  background: #bedbb0;
+  color: var(--accent-text);
+  background: var(--accent);
   border: 0;
   border-radius: 8px;
   font: inherit;

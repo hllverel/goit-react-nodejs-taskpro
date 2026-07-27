@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './ColumnModal.css';
 
 function ColumnModal({ mode, column, onClose, onCreate, onUpdate }) {
@@ -6,6 +6,15 @@ function ColumnModal({ mode, column, onClose, onCreate, onUpdate }) {
 
   const isEditMode = mode === 'edit';
   const trimmedTitle = title.trim();
+
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
 
   const handleSubmit = (event) => {
     event.preventDefault();
@@ -28,7 +37,9 @@ function ColumnModal({ mode, column, onClose, onCreate, onUpdate }) {
         onMouseDown={(event) => event.stopPropagation()}
       >
         <button className="modal-close-button" type="button" aria-label="Close modal" onClick={onClose}>
-          <span aria-hidden="true">x</span>
+          <svg width="18" height="18" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-close" />
+          </svg>
         </button>
 
         <h2 className="column-modal-title">{isEditMode ? 'Edit column' : 'Add column'}</h2>
@@ -47,7 +58,11 @@ function ColumnModal({ mode, column, onClose, onCreate, onUpdate }) {
         />
 
         <button className="column-modal-submit" type="submit" disabled={!trimmedTitle}>
-          <span className="submit-icon" aria-hidden="true">+</span>
+          <span className="submit-icon" aria-hidden="true">
+            <svg width="16" height="16">
+              <use href="/symbol-defs.svg#icon-plus" />
+            </svg>
+          </span>
           {isEditMode ? 'Edit' : 'Add'}
         </button>
       </form>

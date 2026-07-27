@@ -1,120 +1,145 @@
-/* Ekranı kaplayan yarı şeffaf backdrop katmanı */
-.modal-backdrop {
+.task-modal-backdrop {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background-color: rgba(
-    21,
-    21,
-    21,
-    0.5
-  ); /* Figma'ya uygun hafif şeffaf karanlık */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 9999; /* En üstte kalması kesinleşsin */
-}
-
-/* Ana Modal Kutusu (Figma Pop Up) */
-.modal-content {
-  background-color: #151515; /* Figma'daki o tam koyu arka plan */
-  color: #fff;
-  border: 1px solid rgba(190, 219, 176, 0.3); /* İnce yeşilimsi/beyaz zarif border */
-  border-radius: 8px;
+  inset: 0;
+  z-index: 9999;
+  display: grid;
+  place-items: center;
   padding: 24px;
-  width: 350px; /* İçerideki elemanların 302px sığması için ideal dış kutu genişliği */
-  box-sizing: border-box;
-  position: relative; /* Kapatma butonunun doğru konumlanması için şart */
-  font-family: 'Poppins', sans-serif;
+  background: rgba(21, 21, 21, 0.5);
 }
 
-/* Kapatma Butonu (X) */
-.modal-close-btn {
+.task-modal {
+  position: relative;
+  width: min(100%, 350px);
+  padding: 24px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--panel-bg);
+  color: var(--text-primary);
+  box-sizing: border-box;
+  text-align: left;
+}
+
+.task-modal-close {
   position: absolute;
   top: 14px;
   right: 14px;
-  background: none;
-  border: none;
-  color: #fff;
-  font-size: 20px;
+  width: 24px;
+  height: 24px;
+  display: grid;
+  place-items: center;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--text-primary);
   cursor: pointer;
-  z-index: 10; /* Tıklanabilir olmasını garanti altına alıyoruz */
-  padding: 5px;
-  line-height: 1;
+  transition: color 180ms ease, transform 180ms ease;
 }
 
-/* Modal Başlığı */
-.modal-content h2 {
+.task-modal-close svg,
+.plus-icon svg {
+  stroke: currentColor;
+}
+
+.task-modal-close:hover,
+.task-modal-close:focus-visible {
+  color: #e74c3c;
+  outline: none;
+  transform: scale(1.06);
+}
+
+.task-modal h2 {
+  margin: 0 0 24px;
+  color: var(--text-primary);
   font-size: 18px;
   font-weight: 500;
-  margin-top: 0;
-  margin-bottom: 24px;
-  text-align: left;
+  line-height: 1.33;
 }
 
-/* Form Elemanları Genel Düzen */
-.modal-content form {
-  display: flex;
-  flex-direction: column;
-  align-items: center; /* İçerideki her şeyi ortala (302px genişliğe oturtacağız) */
-}
-
-/* Title Input (302x49) */
-.modal-content input[type='text'] {
-  width: 302px;
-  height: 49px;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: 8px;
-  color: #fff;
-  padding: 0 18px;
-  font-size: 14px;
+.task-modal-field {
   margin-bottom: 14px;
-  box-sizing: border-box;
-  outline: none;
 }
 
-/* Description Textarea (302x154) */
-.modal-content textarea {
-  width: 302px;
-  height: 154px;
-  background-color: transparent;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+.task-modal input[type='text'],
+.task-modal textarea {
+  width: 100%;
+  border: 1px solid color-mix(in srgb, var(--text-primary) 30%, transparent);
   border-radius: 8px;
-  color: #fff;
-  padding: 14px 18px;
-  font-size: 14px;
-  margin-bottom: 24px;
+  background: transparent;
+  color: var(--text-primary);
   box-sizing: border-box;
+  font: inherit;
+  font-size: 14px;
   outline: none;
+}
+
+.task-modal input[type='text'] {
+  height: 49px;
+  padding: 0 18px;
+}
+
+.task-modal textarea {
+  height: 154px;
+  padding: 14px 18px;
   resize: none;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overflow-wrap: anywhere;
+  word-break: break-word;
+  scrollbar-color: color-mix(in srgb, var(--accent) 75%, #fff 25%) color-mix(in srgb, var(--text-primary) 8%, transparent);
+  scrollbar-width: thin;
 }
 
-/* Input Odaklanma Efekti (Figma'daki yeşilimsi çerçeve vurgusu için) */
-.modal-content input[type='text']:focus,
-.modal-content textarea:focus {
-  border-color: #bedbb0; /* Figma'daki açık yeşil ton çerçeve */
+.task-modal textarea::-webkit-scrollbar {
+  width: 10px;
 }
 
-/* Label Color ve Deadline Bölümleri Hizalaması */
+.task-modal textarea::-webkit-scrollbar-track {
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--text-primary) 8%, transparent);
+}
+
+.task-modal textarea::-webkit-scrollbar-thumb {
+  border: 3px solid var(--panel-bg);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 75%, #fff 25%);
+}
+
+.task-modal textarea::-webkit-scrollbar-thumb:hover {
+  background: var(--accent);
+}
+
+.task-modal input[type='text']:focus,
+.task-modal textarea:focus {
+  border-color: var(--accent);
+}
+
+.task-modal input::placeholder,
+.task-modal textarea::placeholder {
+  color: color-mix(in srgb, var(--text-primary) 30%, transparent);
+}
+
+.task-modal-error {
+  display: block;
+  margin-top: 6px;
+  color: #e09cb5;
+  font-size: 11px;
+  line-height: 1.2;
+}
+
 .label-color-section,
 .deadline-section {
-  width: 302px; /* Elemanlarla aynı genişlikte */
-  text-align: left;
   margin-bottom: 14px;
 }
 
-.label-color-section label,
-.deadline-section label {
+.task-modal-label {
   display: block;
-  font-size: 12px;
-  color: rgba(255, 255, 255, 0.5);
   margin-bottom: 4px;
+  color: var(--text-secondary);
+  font-size: 12px;
+  line-height: 1.33;
 }
 
-/* Renk Seçenekleri */
 .color-options {
   display: flex;
   gap: 8px;
@@ -123,109 +148,91 @@
 .color-dot {
   width: 14px;
   height: 14px;
+  padding: 0;
+  border: 0;
   border-radius: 50%;
   cursor: pointer;
-  box-sizing: border-box;
 }
 
-/* Figma Gerçek Renk Kodları */
 .color-dot.blue {
-  background-color: #8fa0e8;
-}
-.color-dot.pink {
-  background-color: #e894b6;
-}
-.color-dot.green {
-  background-color: #8bc39a;
-}
-.color-dot.gray {
-  background-color: rgba(255, 255, 255, 0.3);
+  background-color: #8fa1d0;
 }
 
-/* Seçili rengin ortasına nokta koymak yerine Figma'daki gibi dışına çember atalım */
+.color-dot.pink {
+  background-color: #e09cb5;
+}
+
+.color-dot.green {
+  background-color: #bedbb0;
+}
+
+.color-dot.gray {
+  background-color: color-mix(in srgb, var(--text-primary) 30%, transparent);
+}
+
 .color-dot.selected {
-  outline: 2px solid #fff;
+  outline: 1px solid var(--text-primary);
   outline-offset: 2px;
 }
 
-/* Deadline Picker */
-.deadline-picker {
-  display: flex;
-  align-items: center;
-  gap: 6px;
+.deadline-section .custom-datepicker-wrapper {
+  width: max-content;
+}
+
+.deadline-section .modal-date-picker {
+  width: 132px;
+  height: auto;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent);
   font-size: 14px;
   font-weight: 500;
-  color: #bedbb0; /* Figma'daki yeşil yazı rengi */
   cursor: pointer;
 }
 
-.arrow-down {
-  font-size: 10px;
-  color: #bedbb0;
-}
-
-/* En Alttaki Yeşil Buton (302x49) */
-.submit-btn {
-  width: 302px;
+.task-modal-submit {
+  width: 100%;
   height: 49px;
-  background-color: #bedbb0; /* Figma'daki o tatlı açık yeşil buton rengi */
-  color: #161616; /* Yazı rengi koyu */
-  border: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  margin-top: 14px;
+  border: 0;
   border-radius: 8px;
+  background: var(--accent);
+  color: var(--accent-text);
+  cursor: pointer;
+  font: inherit;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 8px;
-  margin-top: 10px;
 }
 
-/* Butonun içindeki siyah kare ikon */
+.task-modal-submit:hover,
+.task-modal-submit:focus-visible {
+  background: var(--accent-hover);
+  outline: none;
+}
+
 .plus-icon {
-  background-color: #161616;
-  color: #fff;
   width: 24px;
   height: 24px;
+  display: grid;
+  place-items: center;
   border-radius: 6px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 16px;
+  background: #161616;
+  color: #fff;
 }
-/* ==========================================================================
-   SADECE MOBİL RESPONSIVE AYARLARI (Maksimum 480px genişlik için)
-   ========================================================================== */
+
+body[data-theme='violet'] .plus-icon {
+  background: #fff;
+  color: var(--accent);
+}
+
 @media screen and (max-width: 480px) {
-  /* Ana dış kutuyu mobil ekranlara sığacak şekilde daraltıyoruz */
-  .modal-content {
-    width: 315px; /* 287px elemanların sığması için ideal dış genişlik */
+  .task-modal {
+    width: min(100%, 335px);
     padding: 20px;
-  }
-
-  /* Form elemanlarının hizalanacağı alanı sadece mobilde 287px yapıyoruz */
-  .modal-content form,
-  .label-color-section,
-  .deadline-section {
-    width: 287px;
-  }
-
-  /* Title Input Mobil Ölçüsü (287x49) */
-  .modal-content input[type='text'] {
-    width: 287px;
-    height: 49px;
-  }
-
-  /* Description Textarea Mobil Ölçüsü (287x154) */
-  .modal-content textarea {
-    width: 287px;
-    height: 154px;
-  }
-
-  /* En Alttaki Yeşil Buton Mobil Ölçüsü (287x49) */
-  .submit-btn {
-    width: 287px;
-    height: 49px;
   }
 }

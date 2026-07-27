@@ -1,7 +1,7 @@
 .modal-backdrop {
   position: fixed;
   inset: 0;
-  z-index: 20;
+  z-index: 10000;
   display: grid;
   place-items: center;
   padding: 24px;
@@ -12,10 +12,10 @@
   position: relative;
   width: min(100%, 560px);
   padding: 40px;
-  color: #fff;
+  color: var(--text-primary);
   text-align: left;
-  background: #151515;
-  border: 1px solid #bedbb0;
+  background: var(--panel-bg);
+  border: 1px solid var(--accent);
   border-radius: 8px;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.45);
 }
@@ -28,17 +28,27 @@
   height: 28px;
   display: grid;
   place-items: center;
-  color: #fff;
+  color: var(--text-primary);
   background: transparent;
   border: 0;
   cursor: pointer;
-  font-size: 28px;
-  line-height: 1;
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.modal-close-button svg {
+  stroke: currentColor;
+}
+
+.modal-close-button:hover,
+.modal-close-button:focus-visible {
+  color: #e74c3c;
+  outline: none;
+  transform: scale(1.06);
 }
 
 .board-modal-title {
   margin: 0 0 32px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 28px;
   font-weight: 600;
 }
@@ -47,9 +57,9 @@
   width: 100%;
   height: 52px;
   padding: 0 18px;
-  color: #fff;
-  background: #1f1f1f;
-  border: 1px solid rgba(190, 219, 176, 0.55);
+  color: var(--text-primary);
+  background: var(--app-bg);
+  border: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
   border-radius: 8px;
   box-sizing: border-box;
   font: inherit;
@@ -57,7 +67,7 @@
 }
 
 .board-modal-input:focus {
-  border-color: #bedbb0;
+  border-color: var(--accent);
 }
 
 .board-modal-fieldset {
@@ -68,7 +78,7 @@
 
 .board-modal-fieldset legend {
   margin-bottom: 14px;
-  color: #fff;
+  color: var(--text-primary);
   font-size: 20px;
   font-weight: 600;
 }
@@ -86,7 +96,7 @@
   display: grid;
   place-items: center;
   padding: 0;
-  color: #8f8f8f;
+  color: var(--text-secondary);
   background: transparent;
   border: 0;
   border-radius: 6px;
@@ -95,19 +105,90 @@
 
 .board-icon-option.is-selected,
 .board-icon-option:hover {
-  color: #fff;
+  color: var(--text-primary);
 }
 
 .board-background-option {
   width: 44px;
   height: 36px;
+  position: relative;
+  display: grid;
+  place-items: center;
   border: 2px solid transparent;
   border-radius: 8px;
   cursor: pointer;
+  overflow: hidden;
 }
 
 .board-background-option.is-selected {
-  border-color: #bedbb0;
+  border-color: var(--accent);
+}
+
+.board-background-option:hover,
+.board-background-option:focus-visible {
+  border-color: var(--accent);
+  outline: none;
+}
+
+.board-background-upload {
+  background: var(--panel-hover-bg);
+  color: var(--text-secondary);
+}
+
+.board-background-upload:hover {
+  color: var(--accent);
+}
+
+.board-background-upload svg,
+.board-background-color svg,
+.submit-icon svg {
+  stroke: currentColor;
+}
+
+.board-background-upload input {
+  display: none;
+}
+
+.board-background-upload[style] {
+  background-position: center;
+  background-size: cover;
+}
+
+.board-background-color input {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.background-effect-picker {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 14px;
+}
+
+.background-effect-option {
+  min-height: 30px;
+  padding: 0 12px;
+  border: 1px solid var(--border-soft);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-secondary);
+  cursor: pointer;
+  font: inherit;
+  font-size: 12px;
+}
+
+.background-effect-option:hover,
+.background-effect-option:focus-visible,
+.background-effect-option.is-selected {
+  border-color: var(--accent);
+  color: var(--accent);
+  outline: none;
 }
 
 .board-modal-submit {
@@ -118,8 +199,8 @@
   justify-content: center;
   gap: 14px;
   margin-top: 40px;
-  color: #161616;
-  background: #bedbb0;
+  color: var(--accent-text);
+  background: var(--accent);
   border: 0;
   border-radius: 8px;
   font: inherit;
@@ -138,10 +219,15 @@
   display: grid;
   place-items: center;
   color: #fff;
-  background: #151515;
+  background: #161616;
   border-radius: 8px;
   font-size: 24px;
   line-height: 1;
+}
+
+body[data-theme='violet'] .submit-icon {
+  background: #fff;
+  color: var(--accent);
 }
 
 .visually-hidden {

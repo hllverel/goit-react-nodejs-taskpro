@@ -1,37 +1,34 @@
-import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate } from 'react-router-dom';
+import AuthPage from '../pages/AuthPage.jsx';
+import HomePage from '../pages/HomePage.jsx';
+import ScreensPage from '../pages/ScreensPage.jsx';
+import WelcomePage from '../pages/WelcomePage.jsx';
 
 // import PrivateRoute from "./PrivateRoutes.jsx";
 import PublicRoute from './PublicRoutes.jsx';
 
-const AuthPage = lazy(() => import('../pages/AuthPage.jsx'));
-const HomePage = lazy(() => import('../pages/HomePage.jsx'));
-const ScreensPage = lazy(() => import('../pages/ScreensPage.jsx'));
-const WelcomePage = lazy(() => import('../pages/WelcomePage.jsx'));
-
 const AppRoutes = () => {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <Routes>
-        <Route
-          path="/welcome"
-          element={
-            <PublicRoute>
-              <WelcomePage />
-            </PublicRoute>
-          }
-        />
+    <Routes>
+      <Route
+        path="/welcome"
+        element={
+          <PublicRoute>
+            <WelcomePage />
+          </PublicRoute>
+        }
+      />
 
-        <Route
-          path="/auth/:id"
-          element={
-            <PublicRoute>
-              <AuthPage />
-            </PublicRoute>
-          }
-        />
+      <Route
+        path="/auth/:id"
+        element={
+          <PublicRoute>
+            <AuthPage />
+          </PublicRoute>
+        }
+      />
 
-        {/* <Route
+      {/* <Route
               path="/home"
               element={
               <PrivateRoute>
@@ -44,14 +41,13 @@ const AppRoutes = () => {
                   <Route path=":boardId" element={<ScreensPage />} />
           </Route> */}
 
-        <Route path="/home" element={<HomePage />}>
-          {/* /home/:boardId renders ScreensPage inside HomePage's <Outlet /> */}
-          <Route path=":boardId" element={<ScreensPage />} />
-        </Route>
+      <Route path="/home" element={<HomePage />}>
+        {/* /home/:boardId renders ScreensPage inside HomePage's <Outlet /> */}
+        <Route path=":boardId" element={<ScreensPage />} />
+      </Route>
 
-        <Route path="*" element={<Navigate to="/welcome" replace />} />
-      </Routes>
-    </Suspense>
+      <Route path="*" element={<Navigate to="/welcome" replace />} />
+    </Routes>
   );
 };
 

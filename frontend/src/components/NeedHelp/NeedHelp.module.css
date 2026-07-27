@@ -1,10 +1,10 @@
 .needhelpsidebar {
-  margin: 0 14px;
-  background: var(--background);
-  border-radius: 8px;
-  padding: 20px;
+  width: 100%;
   display: flex;
   flex-direction: column;
+  padding: 20px;
+  border-radius: 8px;
+  background: var(--sidebar-card-bg);
 }
 
 .plant {
@@ -14,52 +14,62 @@
 }
 
 .needhelpsidebar p {
-  text-align: left;
-  font-size: 14px;
-  line-height: 1.42857;
   margin-bottom: 18px;
+  color: var(--sidebar-text-primary);
+  font-size: 12px;
+  line-height: 1.333;
+  text-align: left;
 }
 
 .taskpro {
-  color: var(--light-green);
+  color: var(--sidebar-accent);
 }
 
 .helpcircle {
-  width: 20px;
-  height: 20px;
-  stroke: var(--white);
+  width: 18px;
+  height: 18px;
+  flex: 0 0 18px;
+  stroke: currentColor;
 }
 
 .needhelptrigger {
-  display: flex;
-  flex-direction: row;
+  display: inline-flex;
+  align-items: center;
   gap: 8px;
+  color: var(--sidebar-text-primary);
+  cursor: pointer;
+  transition: color 180ms ease;
+}
+
+.needhelptrigger:hover {
+  color: var(--sidebar-accent);
 }
 
 .needhelptrigger p {
-  font-weight: 500;
   margin-bottom: 0;
+  color: currentColor;
+  font-weight: 500;
 }
 
 .modal {
   position: fixed;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
+  z-index: 10000;
+  display: grid;
+  place-items: center;
   padding: 14px;
+  background: rgba(0, 0, 0, 0.5);
 }
 
 .popup {
-  padding: 24px;
-  border-radius: 8px;
+  position: relative;
   width: 100%;
   max-width: 335px;
-  position: relative;
+  padding: 24px;
+  border: 1px solid var(--accent);
+  border-radius: 8px;
+  background: var(--panel-bg);
   box-shadow: 0 4px 16px 0 rgba(22, 22, 22, 0.05);
-  background: #151515;
   box-sizing: border-box;
 }
 
@@ -67,16 +77,25 @@
   position: absolute;
   top: 14px;
   right: 14px;
-  background: none;
-  border: none;
-  cursor: pointer;
   padding: 0;
+  border: none;
+  background: none;
+  color: var(--text-primary);
+  cursor: pointer;
+  transition: color 180ms ease, transform 180ms ease;
 }
 
 .closeicon {
   width: 18px;
   height: 18px;
-  stroke: var(--white);
+  stroke: currentColor;
+}
+
+.closepopup:hover,
+.closepopup:focus-visible {
+  color: #e74c3c;
+  outline: none;
+  transform: scale(1.06);
 }
 
 .form {
@@ -86,23 +105,24 @@
 }
 
 .form h2 {
-  font-weight: 500;
-  font-size: 18px;
   margin: 0 0 10px 0;
+  color: var(--text-primary);
+  font-size: 18px;
+  font-weight: 500;
   text-align: left;
 }
 
 .form input,
 .form textarea {
-  border: 1px solid var(--light-green-alpha);
-  border-radius: 8px;
   width: 100%;
-  background: transparent;
   padding: 14px 18px;
-  color: var(--white);
-  font-size: 14px;
-  font-family: inherit;
+  border: 1px solid color-mix(in srgb, var(--accent) 40%, transparent);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--text-primary);
   box-sizing: border-box;
+  font-family: inherit;
+  font-size: 14px;
 }
 
 .form input {
@@ -116,29 +136,29 @@
 
 .form input::placeholder,
 .form textarea::placeholder {
-  color: rgba(255, 255, 255, 0.3);
+  color: var(--text-secondary);
 }
 
 .form input:focus,
 .form textarea:focus {
+  border: 1px solid var(--accent);
   outline: none;
-  border: 1px solid var(--light-green);
 }
 
 .sendbutton {
-  background: var(--light-green);
+  height: 49px;
+  margin-top: 10px;
   border: none;
   border-radius: 8px;
-  height: 49px;
-  color: #161616;
+  background: var(--accent);
+  color: var(--accent-text);
+  cursor: pointer;
   font-size: 14px;
   font-weight: 500;
-  cursor: pointer;
-  margin-top: 10px;
 }
 
 .sendbutton:hover {
-  background: var(--green);
+  background: var(--accent-hover);
 }
 
 .errortext {

@@ -1,5 +1,6 @@
 // place this in the sidebar later
-import { useState, useEffect } from 'react';
+import { useCallback, useState, useEffect } from 'react';
+import { createPortal } from 'react-dom';
 import styles from './NeedHelp.module.css';
 import plantImg from '../../assets/needhelpplant.webp';
 import plantImg2x from '../../assets/needhelpplant@2.webp';
@@ -12,18 +13,18 @@ export default function NeedHelp() {
     const [status, setStatus] = useState('idle');
     const [errorMsg, setErrorMsg] = useState('');
 
-    const resetForm = () => {
+    const resetForm = useCallback(() => {
         setFromEmail('');
         setFromName('');
         setMessage('');
         setStatus('idle');
         setErrorMsg('');
-    };
+    }, []);
 
-    const closeModal = () => {
+    const closeModal = useCallback(() => {
         setIsOpen(false);
         resetForm();
-    };
+    }, [resetForm]);
 
     useEffect(() => {
         if (!isOpen) return;
@@ -32,7 +33,7 @@ export default function NeedHelp() {
         };
         window.addEventListener('keydown', handleEscape);
         return () => window.removeEventListener('keydown', handleEscape);
-    }, [isOpen]);
+    }, [isOpen, closeModal]);
 
     useEffect(() => {
         document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -77,7 +78,7 @@ export default function NeedHelp() {
                 </div>
             </div>
 
-        {isOpen && (
+        {isOpen && createPortal(
             <div className={styles.modal} onClick={closeModal}>
             <div className={styles.popup} onClick={(e) => e.stopPropagation()}>
                 <button className={styles.closepopup} onClick={closeModal}>
@@ -126,7 +127,8 @@ export default function NeedHelp() {
                 </form>
                 )}
             </div>
-            </div>
+            </div>,
+            document.body,
         )}
     </>
   );

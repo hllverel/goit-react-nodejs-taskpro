@@ -37,6 +37,15 @@ function EditProfileModal({ onClose }) {
     };
   }, [avatarFile, avatarPreview]);
 
+  useEffect(() => {
+    const handleEscape = (event) => {
+      if (event.key === 'Escape') onClose();
+    };
+
+    document.addEventListener('keydown', handleEscape);
+    return () => document.removeEventListener('keydown', handleEscape);
+  }, [onClose]);
+
   const handleAvatarChange = (event) => {
     const file = event.target.files?.[0];
     if (!file) return;
@@ -75,7 +84,9 @@ function EditProfileModal({ onClose }) {
         noValidate
       >
         <button className="modal-close-button" type="button" aria-label="Close modal" onClick={onClose}>
-          <span aria-hidden="true">x</span>
+          <svg width="18" height="18" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-close" />
+          </svg>
         </button>
 
         <h2 className="edit-profile-title">Edit Profile</h2>

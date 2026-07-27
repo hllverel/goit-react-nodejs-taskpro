@@ -11,8 +11,8 @@ const router = Router();
 router.use(authenticate);
 
 router.post('/', createTaskController);
-router.put('/:id', updateTaskController);
-router.delete('/:id', deleteTaskController);
 router.get('/', getTasksController);
+router.patch('/:id', updateTaskController);
+router.delete('/:id', deleteTaskController);
 
 export default router;

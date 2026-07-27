@@ -1,18 +1,17 @@
-import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 
 import LogoComponent from "../LogoComponent/LogoComponent.jsx";
 import Navigation from "../Navigation/Navigation.jsx";
-import BoardModal from "../BoardModal/BoardModal.jsx";
 import NeedHelp from "../NeedHelp/NeedHelp.jsx";
 import { logoutThunk } from "../../store/auth/authSlice.js";
+import { useBoardWorkspace } from "../BoardWorkspace/useBoardWorkspace.js";
 
 export default function Sidebar({ isMenuOpen, onCloseMenu }) {
-  const [isModalOpen, setIsModalOpen] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+  const { openCreateBoard } = useBoardWorkspace();
 
   const handleLogout = async () => {
     try {
@@ -25,9 +24,17 @@ export default function Sidebar({ isMenuOpen, onCloseMenu }) {
 
   return (
     <aside className={`sidebar ${isMenuOpen ? "sidebar--open" : ""}`}>
-      <button className="sidebar-close-btn" onClick={onCloseMenu}>
-        ✕
+      <button
+        className="sidebar-close-btn"
+        type="button"
+        aria-label="Close menu"
+        onClick={onCloseMenu}
+      >
+        <svg width="18" height="18" aria-hidden="true">
+          <use href="/symbol-defs.svg#icon-close" />
+        </svg>
       </button>
+
       <div className="sidebar-top">
         <LogoComponent />
 
@@ -35,34 +42,37 @@ export default function Sidebar({ isMenuOpen, onCloseMenu }) {
           <p className="boards-title">My boards</p>
 
           <button
+            type="button"
             className="create-board-btn"
-            onClick={() => setIsModalOpen(true)}
+            onClick={openCreateBoard}
           >
-            <span className="plus">+</span>
-
-            <span>Create a new board</span>
+            <span>
+              Create a <br /> new board
+            </span>
+            <span className="create-board-icon" aria-hidden="true">
+              <svg width="14" height="14">
+                <use href="/symbol-defs.svg#icon-plus" />
+              </svg>
+            </span>
           </button>
         </div>
 
         <Navigation />
       </div>
 
-      <NeedHelp />
-
       <div className="sidebar-bottom">
+        <NeedHelp />
         <button
+          type="button"
           className="logout-btn"
           onClick={handleLogout}
         >
-          Logout
+          <svg className="logout-icon" width="32" height="32" aria-hidden="true">
+            <use href="/symbol-defs.svg#icon-logout" />
+          </svg>
+          <span>Log out</span>
         </button>
       </div>
-
-      {isModalOpen && (
-        <BoardModal
-          onClose={() => setIsModalOpen(false)}
-        />
-      )}
     </aside>
   );
 }
