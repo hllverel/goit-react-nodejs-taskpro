@@ -15,8 +15,12 @@ export const sendHelpRequest = async (req, res) => {
       from: env(SMTP.SMTP_FROM) || env(SMTP.SMTP_USER),
       to: SUPPORT_EMAIL,
       replyTo: fromEmail,
-      subject: `placeholder`,
-      text: `placeholder`,
+      subject: `TaskPro Support Request from ${fromName || fromEmail}`,
+      text: `TaskPro Support Request
+            From: ${fromName || 'N/A'}
+            Email: ${fromEmail}
+
+            Message: ${message}`,
       html: `
         <p><strong>From:</strong> ${fromName || 'N/A'} (${fromEmail})</p>
         <p><strong>Message:</strong></p>
